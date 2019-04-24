@@ -3,7 +3,26 @@ Your task is to:
 provided – this can be reproducing, extending or modifying the problem which is
 described in the paper related to that dataset;
 
+some notes of rules:
+(1) similar inputs have similar outputs
+(2) 
 
+notes on GIS:
+(1) 190 points, 16 values, last 5 are forest supra-type
+(2) plot number, aspect, sin of aspect, cos of aspect, altitude, topographic position
+	slope degree, geology descr, rainfall, temperature, landsat band tm1, 
+	landsat band tm2, landsat band tm3, landsat band tm4, landsat band tm5
+	landsat band tm6, landsat band tm7, scrub, dry sclerophyll, wet-dry sclero,
+	wet sclero, rain forest
+(3) aspect: 0 float, 10 north, 20 ne, 30 east, ..., 70 west, 80 nw
+	topographic position: 32 gully, 48 lower slope, 64 mid-slope, 80 upper slope
+				96 ridge
+	slope degree: 10: <1%, 20: <2.15%, 30: <4.64%, 40: <10%,
+			50: <21.5%, 60: <46.4%, 70: <100%, 80: >100%
+	geology descriptor: unknown encoding
+	rainfall: (mm-801)/5
+	temperature: (degrees-11)*30
+	landsat tm bands 1 to 7: values in range 0 to 256
 
 
 
