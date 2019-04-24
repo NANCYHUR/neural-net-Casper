@@ -1,1 +1,31 @@
-1
+Your task is to:
+1. devise a classification or regression problem to investigate using the data set
+provided – this can be reproducing, extending or modifying the problem which is
+described in the paper related to that dataset;
+
+
+
+
+
+
+2. implement a neural network in PyTorch / Python to solve the problem and
+implement a method to determine the performance of the neural network;
+
+
+
+
+3. implement a technique from the literature (paper selected as described above) and
+determine its benefit or lack of benefit;
+
+
+
+
+4. compare your results with results published in a research paper reporting results on
+the data set you chose (see below); and
+
+
+
+
+
+
+5. write a report on your work
