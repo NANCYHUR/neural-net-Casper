@@ -1,0 +1,6 @@
+-> watch GIS recording
+-> print all papers (GIS and Casper)
+-> read all GIS papers
+-> do task 1 (on report)
+-> preprocessing
+-> task 2

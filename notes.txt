@@ -9,11 +9,30 @@ some notes of rules:
 
 notes on GIS:
 (1) 190 points, 16 values, last 5 are forest supra-type
-(2) plot number, aspect, sin of aspect, cos of aspect, altitude, topographic position
-	slope degree, geology descr, rainfall, temperature, landsat band tm1, 
-	landsat band tm2, landsat band tm3, landsat band tm4, landsat band tm5
-	landsat band tm6, landsat band tm7, scrub, dry sclerophyll, wet-dry sclero,
-	wet sclero, rain forest
+(2) plot number, 
+	aspect, 
+	sin of aspect, 
+	cos of aspect, 
+	altitude, 
+	topographic position,
+	slope degree, 
+	geology descr, 
+	rainfall, 
+	temperature, 
+	landsat band tm1, 
+	landsat band tm2, 
+	landsat band tm3, 
+	landsat band tm4, 
+	landsat band tm5
+	landsat band tm6, 
+	landsat band tm7, 
+
+	scrub, 
+	dry sclerophyll, 
+	wet-dry sclero,
+	wet sclero, 
+	rain forest
+
 (3) aspect: 0 float, 10 north, 20 ne, 30 east, ..., 70 west, 80 nw
 	topographic position: 32 gully, 48 lower slope, 64 mid-slope, 80 upper slope
 				96 ridge
@@ -24,6 +43,8 @@ notes on GIS:
 	temperature: (degrees-11)*30
 	landsat tm bands 1 to 7: values in range 0 to 256
 
+(4) network design considerations
+	topology: keep size of network as small as possible to avoid overfitting (input, hidden or output neutrons)
 
 
 
