@@ -103,8 +103,7 @@ def pre_process():
 
 # according to equilateral encoding of the output,
 # retrieve the category by calculating Euclidean distance
-def interpret_output(unit1, unit2, unit3, unit4):
-    output_vertex = [unit1, unit2, unit3, unit4]
+def interpret_output(output_vertex):
     closest_type = None
     closest_distance = np.inf
     for i in range(len(output_encoding)):

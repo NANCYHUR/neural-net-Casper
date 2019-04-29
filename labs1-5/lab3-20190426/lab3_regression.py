@@ -16,7 +16,7 @@ import matplotlib.pyplot as plt
 Step 1: Load data and pre-process data
 """
 # load all data
-data = pd.read_csv('dataset/winequality/winequality-red.csv', sep=";")
+data = pd.read_csv('winequality-red.csv', sep=";")
 
 # wine with quality greater than 5.5 has good quality
 # wine with quality less than 5.5 has poor quality
@@ -46,8 +46,8 @@ for column in test_input:
     test_input[column] = test_input.loc[:, [column]].apply(lambda x: (x - x.min()) / (x.max() - x.min()))
 
 # create Tensors to hold inputs and outputs
-X = torch.Tensor(train_input.as_matrix()).float()
-Y = torch.Tensor(train_target.as_matrix()).float()
+X = torch.Tensor(train_input.values).float()
+Y = torch.Tensor(train_target.values).float()
 
 """
 Step 2: Define a regression model 
