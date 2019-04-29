@@ -34,8 +34,8 @@ def train_data(splitted_dt, i):
     train_input = train_dt.iloc[:, :input_size]
     train_target = train_dt.iloc[:, input_size:]
     # create Tensors to hold inputs and outputs
-    X = torch.Tensor(train_input.as_matrix()).float()
-    Y = torch.Tensor(train_target.as_matrix()).float()
+    X = torch.Tensor(train_input.values).float()
+    Y = torch.Tensor(train_target.values).float()
     return X, Y
 
 
@@ -47,8 +47,8 @@ def test_data(splitted_dt, i):
     test_input = test_dt.iloc[:, :input_size]
     test_target = test_dt.iloc[:, input_size:]
     # create Tensors to hold inputs and outputs
-    X = torch.Tensor(test_input.as_matrix()).float()
-    Y = torch.Tensor(test_target.as_matrix()).float()
+    X = torch.Tensor(test_input.values).float()
+    Y = torch.Tensor(test_target.values).float()
     return X, Y
 
 
@@ -78,7 +78,7 @@ def train(X, Y, plot=True):
     for epoch in range(num_epochs):
         # perform forward pass: compute predicted y by passing x to the model
         Y_predicted = reg_model(X)
-        Y_predicted = Y_predicted.view(len(Y_predicted))
+        # Y_predicted = Y_predicted.view(len(Y_predicted))
         # compute loss
         loss = loss_func(Y_predicted, Y)
         all_losses.append(loss.item())
@@ -116,7 +116,7 @@ def train(X, Y, plot=True):
 # perform testing on trained model, print test loss, confusion matrix and correctness
 def test(X_test, Y_test, reg_model):
     Y_predicted_test = reg_model(X_test)
-    test_loss = loss_func(Y_predicted_test.view(Y_predicted_test.size(0)), Y_test)
+    test_loss = loss_func(Y_predicted_test, Y_test)
     print('test loss: %f' % test_loss.item())
     total_num = Y_test.size(0)
     confusion = confusion_matrix(Y_predicted_test, Y_test)
@@ -133,7 +133,7 @@ def confusion_matrix(Y, Y_predicted):
     for i in range(Y.shape[0]):
         actual_class = interpret_output(Y[i])
         predicted_class = interpret_output(Y_predicted[i])
-        confusion[actual_class][predicted_class] += 1
+        confusion[actual_class[1]][predicted_class[1]] += 1
         if actual_class == predicted_class:
             correct_num += 1
     return confusion, correct_num
@@ -146,7 +146,7 @@ data = pre_process()
 # split data for later use (k cross validation)
 splitted_data = np.split(data, k_cross_validation)
 
-# turn plot on
+# turn plot on TODO: something wrong, there is no plot
 plt.ion()
 
 # train using cross validation
@@ -162,6 +162,6 @@ for i in range(k_cross_validation):
     # test the model on test data
     test_loss = test(X_test, Y_test, reg_model)
 
-    all_losses.append(loss, test_loss)
+    all_losses.append((loss, test_loss))
 
-print(all_losses)
+# TODO: grab the lowest loss, stick to that model (print result)j

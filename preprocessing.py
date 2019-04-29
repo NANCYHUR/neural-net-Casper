@@ -108,8 +108,8 @@ def interpret_output(output_vertex):
     closest_distance = np.inf
     for i in range(len(output_encoding)):
         type = output_encoding[i]
-        dist = np.linalg.norm(np.array(output_vertex) - np.array(type))
+        dist = np.linalg.norm(output_vertex.detach().numpy() - np.array(type))
         if closest_distance > dist:
             closest_distance = dist
             closest_type = output_types[i]
-    return closest_type
+    return closest_type, output_types.index(closest_type)
