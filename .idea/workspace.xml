@@ -2,13 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c442f2ce-cdad-4d38-a8cf-330ebacc5c40" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/comp4660-assignment1.iml" afterPath="$PROJECT_DIR$/.idea/comp4660-assignment1.iml" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/labs1-5/lab3-20190426/lab3_regression.py" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/preprocessing.py" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/notes.txt" afterPath="$PROJECT_DIR$/notes.txt" />
-      <change beforePath="$PROJECT_DIR$/pre-processing.py" afterPath="$PROJECT_DIR$/pre-processing.py" />
-      <change beforePath="$PROJECT_DIR$/report.docx" afterPath="$PROJECT_DIR$/report.docx" />
-      <change beforePath="$PROJECT_DIR$/task3-Casper.py" afterPath="$PROJECT_DIR$/task3-CasPer.py" />
+      <change beforePath="$PROJECT_DIR$/pre-processing.py" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/task2-NN.py" afterPath="$PROJECT_DIR$/task2-NN.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -18,30 +16,88 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.5">
+    <splitter split-orientation="horizontal" split-proportion="0.6502924">
       <split-first>
-        <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-          <file leaf-file-name="pre-processing.py" pinned="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/pre-processing.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="1350">
-                  <caret line="90" column="51" lean-forward="false" selection-start-line="90" selection-start-column="51" selection-end-line="90" selection-end-column="51" />
-                  <folding>
-                    <element signature="e#28#47#0" expanded="true" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-        </leaf>
+        <splitter split-orientation="horizontal" split-proportion="0.5148515">
+          <split-first>
+            <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+              <file leaf-file-name="preprocessing.py" pinned="false" current-in-tab="true">
+                <entry file="file://$PROJECT_DIR$/preprocessing.py">
+                  <provider selected="true" editor-type-id="text-editor">
+                    <state relative-caret-position="357">
+                      <caret line="105" column="0" lean-forward="true" selection-start-line="105" selection-start-column="0" selection-end-line="105" selection-end-column="0" />
+                      <folding>
+                        <element signature="e#28#47#0" expanded="true" />
+                      </folding>
+                    </state>
+                  </provider>
+                </entry>
+              </file>
+              <file leaf-file-name="task2-NN.py" pinned="false" current-in-tab="false">
+                <entry file="file://$PROJECT_DIR$/task2-NN.py">
+                  <provider selected="true" editor-type-id="text-editor">
+                    <state relative-caret-position="315">
+                      <caret line="21" column="0" lean-forward="false" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
+                      <folding />
+                    </state>
+                  </provider>
+                </entry>
+              </file>
+              <file leaf-file-name="lab2_task1_glass_binary.py" pinned="false" current-in-tab="false">
+                <entry file="file://$PROJECT_DIR$/labs1-5/Lab2-20190311/lab2_task1_glass_binary.py">
+                  <provider selected="true" editor-type-id="text-editor">
+                    <state relative-caret-position="0">
+                      <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+                      <folding />
+                    </state>
+                  </provider>
+                </entry>
+              </file>
+            </leaf>
+          </split-first>
+          <split-second>
+            <leaf>
+              <file leaf-file-name="lab2_task1_glass_binary.py" pinned="false" current-in-tab="false">
+                <entry file="file://$PROJECT_DIR$/labs1-5/Lab2-20190311/lab2_task1_glass_binary.py">
+                  <provider selected="true" editor-type-id="text-editor">
+                    <state relative-caret-position="181">
+                      <caret line="22" column="0" lean-forward="true" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
+                      <folding />
+                    </state>
+                  </provider>
+                </entry>
+              </file>
+              <file leaf-file-name="regression_example.py" pinned="false" current-in-tab="false">
+                <entry file="file://$PROJECT_DIR$/labs1-5/lab3-20190426/regression_example.py">
+                  <provider selected="true" editor-type-id="text-editor">
+                    <state relative-caret-position="135">
+                      <caret line="16" column="0" lean-forward="true" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
+                      <folding />
+                    </state>
+                  </provider>
+                </entry>
+              </file>
+              <file leaf-file-name="lab3_regression.py" pinned="false" current-in-tab="true">
+                <entry file="file://$PROJECT_DIR$/labs1-5/lab3-20190426/lab3_regression.py">
+                  <provider selected="true" editor-type-id="text-editor">
+                    <state relative-caret-position="-61">
+                      <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+                      <folding />
+                    </state>
+                  </provider>
+                </entry>
+              </file>
+            </leaf>
+          </split-second>
+        </splitter>
       </split-first>
       <split-second>
         <leaf>
-          <file leaf-file-name="lab2_task2_glass_dataloader.py" pinned="false" current-in-tab="false">
+          <file leaf-file-name="lab2_task2_glass_dataloader.py" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/labs1-5/Lab2-20190311/lab2_task2_glass_dataloader.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="76">
-                  <caret line="47" column="0" lean-forward="true" selection-start-line="47" selection-start-column="0" selection-end-line="47" selection-end-column="0" />
+                <state relative-caret-position="315">
+                  <caret line="21" column="4" lean-forward="true" selection-start-line="21" selection-start-column="4" selection-end-line="21" selection-end-column="4" />
                   <folding>
                     <element signature="e#281#299#0" expanded="true" />
                   </folding>
@@ -49,7 +105,7 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="gis-data.txt" pinned="false" current-in-tab="true">
+          <file leaf-file-name="gis-data.txt" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/GIS/gis-data.txt">
               <provider selected="true" editor-type-id="text-editor">
                 <state relative-caret-position="15">
@@ -77,10 +133,11 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/plan.txt" />
-        <option value="$PROJECT_DIR$/task2-NN.py" />
         <option value="$PROJECT_DIR$/task3-Casper.py" />
         <option value="$PROJECT_DIR$/notes.txt" />
         <option value="$PROJECT_DIR$/pre-processing.py" />
+        <option value="$PROJECT_DIR$/task2-NN.py" />
+        <option value="$PROJECT_DIR$/preprocessing.py" />
       </list>
     </option>
   </component>
@@ -129,18 +186,13 @@
             <path>
               <item name="comp4660-assignment1" type="b2602c69:ProjectViewProjectNode" />
               <item name="comp4660-assignment1" type="462c0819:PsiDirectoryNode" />
-              <item name="GIS" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="comp4660-assignment1" type="b2602c69:ProjectViewProjectNode" />
-              <item name="comp4660-assignment1" type="462c0819:PsiDirectoryNode" />
               <item name="labs1-5" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="comp4660-assignment1" type="b2602c69:ProjectViewProjectNode" />
               <item name="comp4660-assignment1" type="462c0819:PsiDirectoryNode" />
               <item name="labs1-5" type="462c0819:PsiDirectoryNode" />
-              <item name="Lab2-20190311" type="462c0819:PsiDirectoryNode" />
+              <item name="lab3-20190426" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -197,7 +249,7 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <module name="comp4660-assignment1" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/pre-processing.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/preprocessing.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -233,12 +285,12 @@
     <frame x="0" y="0" width="1920" height="1080" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.15429173" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.09952607" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3286991" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3286991" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.27507448" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
@@ -280,14 +332,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/task2-NN.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/task3-CasPer.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -301,24 +345,6 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/labs1-5/Lab2-20190311/lab2_task1_glass_binary.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/labs1-5/lab3-20190426/regression_example.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-105">
-          <caret line="5" column="0" lean-forward="false" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
-          <folding>
-            <element signature="e#91#103#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -354,16 +380,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/labs1-5/Lab2-20190311/lab2_task2_glass_dataloader.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="76">
-          <caret line="47" column="0" lean-forward="true" selection-start-line="47" selection-start-column="0" selection-end-line="47" selection-end-column="0" />
-          <folding>
-            <element signature="e#281#299#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/GIS/gis-data.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="15">
@@ -372,10 +388,52 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/pre-processing.py">
+    <entry file="file://$PROJECT_DIR$/labs1-5/Lab2-20190311/lab2_task2_glass_dataloader.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1350">
-          <caret line="90" column="51" lean-forward="false" selection-start-line="90" selection-start-column="51" selection-end-line="90" selection-end-column="51" />
+        <state relative-caret-position="315">
+          <caret line="21" column="4" lean-forward="true" selection-start-line="21" selection-start-column="4" selection-end-line="21" selection-end-column="4" />
+          <folding>
+            <element signature="e#281#299#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/labs1-5/Lab2-20190311/lab2_task1_glass_binary.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/task2-NN.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="315">
+          <caret line="21" column="0" lean-forward="false" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/labs1-5/lab3-20190426/regression_example.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="135">
+          <caret line="16" column="0" lean-forward="true" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/labs1-5/lab3-20190426/lab3_regression.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-61">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/preprocessing.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="357">
+          <caret line="105" column="0" lean-forward="true" selection-start-line="105" selection-start-column="0" selection-end-line="105" selection-end-column="0" />
           <folding>
             <element signature="e#28#47#0" expanded="true" />
           </folding>
