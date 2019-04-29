@@ -51,7 +51,7 @@ notes on GIS:
 2. implement a neural network in PyTorch / Python to solve the problem and
 implement a method to determine the performance of the neural network;
 
-
+https://piazza.com/class/jsjthqq2z655mg?cid=102
 
 
 3. implement a technique from the literature (paper selected as described above) and
