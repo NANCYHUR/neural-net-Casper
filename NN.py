@@ -60,6 +60,8 @@ class Regression(nn.Module):
         self.linear2 = nn.Linear(hidden_size, output_size)
 
     def forward(self, x):
+        print(x.size())
+        print(self.linear1.weight.size())
         out = torch.sigmoid(self.linear1(x))
         out = self.linear2(out)
         return out
@@ -145,60 +147,61 @@ def confusion_matrix(Y, Y_predicted):
 
 
 ################################ main ###################################
-# pre-process the data, using the function defined in preprocessing.py
-data = pre_process()
+if __name__ == "__main__":
+    # pre-process the data, using the function defined in preprocessing.py
+    data = pre_process()
 
-# split data for later use (k cross validation)
-splitted_data = np.split(data, k_cross_validation)
+    # split data for later use (k cross validation)
+    splitted_data = np.split(data, k_cross_validation)
 
-# train using cross validation
-all_train_losses = []
-all_test_losses = []
-all_train_correctness = []
-all_test_correctness = []
-for i in range(k_cross_validation):
-    # extract train and test data, split input and target
-    X_train, Y_train = train_data(splitted_data, i)
-    X_test, Y_test = test_data(splitted_data, i)
+    # train using cross validation
+    all_train_losses = []
+    all_test_losses = []
+    all_train_correctness = []
+    all_test_correctness = []
+    for i in range(k_cross_validation):
+        # extract train and test data, split input and target
+        X_train, Y_train = train_data(splitted_data, i)
+        X_test, Y_test = test_data(splitted_data, i)
 
-    # train the model and print loss, confusion matrix and correctness
-    reg_model, loss, correctness = train(X_train, Y_train, plot=False)
+        # train the model and print loss, confusion matrix and correctness
+        reg_model, loss, correctness = train(X_train, Y_train, plot=False)
 
-    # test the model on test data
-    test_loss, test_correctness = test(X_test, Y_test, reg_model)
+        # test the model on test data
+        test_loss, test_correctness = test(X_test, Y_test, reg_model)
 
-    # append losses and correctness
-    all_train_losses.append(loss)
-    all_test_losses.append(test_loss)
-    all_train_correctness.append(correctness)
-    all_test_correctness.append(test_correctness)
+        # append losses and correctness
+        all_train_losses.append(loss)
+        all_test_losses.append(test_loss)
+        all_train_correctness.append(correctness)
+        all_test_correctness.append(test_correctness)
 
-# print average loss and correctness on training and testing data
-train_loss_avg = (sum(all_train_losses) / len(all_train_losses)).item()
-test_loss_avg = (sum(all_test_losses) / len(all_test_losses)).item()
-print('average loss on training data', train_loss_avg)
-print('average loss on testing data', test_loss_avg)
-train_correctness_avg = sum(all_train_correctness) / len(all_train_correctness)
-test_correctness_avg = sum(all_test_correctness) / len(all_test_correctness)
-print('average correctness on training data', train_correctness_avg)
-print('average correctness on testing data', test_correctness_avg)
+    # print average loss and correctness on training and testing data
+    train_loss_avg = (sum(all_train_losses) / len(all_train_losses)).item()
+    test_loss_avg = (sum(all_test_losses) / len(all_test_losses)).item()
+    print('average loss on training data', train_loss_avg)
+    print('average loss on testing data', test_loss_avg)
+    train_correctness_avg = sum(all_train_correctness) / len(all_train_correctness)
+    test_correctness_avg = sum(all_test_correctness) / len(all_test_correctness)
+    print('average correctness on training data', train_correctness_avg)
+    print('average correctness on testing data', test_correctness_avg)
 
-# display performance of each model
-# losses
-plt.figure()
-plt.plot(all_train_losses, label='training data', color='blue')
-plt.plot(all_test_losses, label='testing data', color='red')
-plt.axhline(y=train_loss_avg, linestyle=':', label='training data average loss', color='blue')
-plt.axhline(y=test_loss_avg, linestyle=':', label='testing data average loss', color='red')
-plt.legend()
-plt.title('losses of model on training and testing data')
-plt.show()
-# correctness
-plt.figure()
-plt.plot(all_train_correctness, label='training data', color='blue')
-plt.plot(all_test_correctness, label='testing data', color='red')
-plt.axhline(y=train_correctness_avg, linestyle=':', label='training data average correctness', color='blue')
-plt.axhline(y=test_correctness_avg, linestyle=':', label='testing data average correctness', color='red')
-plt.legend()
-plt.title('correctness of model on training and testing data')
-plt.show()
+    # display performance of each model
+    # losses
+    plt.figure()
+    plt.plot(all_train_losses, label='training data', color='blue')
+    plt.plot(all_test_losses, label='testing data', color='red')
+    plt.axhline(y=train_loss_avg, linestyle=':', label='training data average loss', color='blue')
+    plt.axhline(y=test_loss_avg, linestyle=':', label='testing data average loss', color='red')
+    plt.legend()
+    plt.title('losses of model on training and testing data')
+    plt.show()
+    # correctness
+    plt.figure()
+    plt.plot(all_train_correctness, label='training data', color='blue')
+    plt.plot(all_test_correctness, label='testing data', color='red')
+    plt.axhline(y=train_correctness_avg, linestyle=':', label='training data average correctness', color='blue')
+    plt.axhline(y=test_correctness_avg, linestyle=':', label='testing data average correctness', color='red')
+    plt.legend()
+    plt.title('correctness of model on training and testing data')
+    plt.show()
