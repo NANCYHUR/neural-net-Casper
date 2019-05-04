@@ -17,24 +17,69 @@ import matplotlib.pyplot as plt
 # hyper parameters
 input_size = 20
 output_size = 4
-num_epochs = 1000
-learning_rate = 0.2
+num_epochs = 500
+learning_rate_1 = 0.2
+learning_rate_2 = 0.005
+learning_rate_3 = 0.001
 k_cross_validation = 5
 
 # define loss function
 loss_func = nn.BCEWithLogitsLoss()
 
 
-class My_Linear(nn.Linear):
-    def __init__(self, in_features, out_features, bias=True):
-        super().__init__(in_features, out_features)
-        self.has_bias = bias
+# define SARprop
+class SARprop(torch.optim.Rprop):
+    def __init__(self, params, lr=1e-2, etas=(0.5, 1.2), step_sizes=(1e-6, 50)):
+        super(SARprop, self).__init__()
 
-    # this feature append the weights of 'other_linear' to the end of self
-    # keep the bias unchanged
-    def update(self, other_linear):
-        self.weight = nn.parameter.Parameter(torch.cat((self.weight, other_linear.weight), 1))
+    ############# most of the following code is modified from torch.optim.rprop #############
+    def step(self, closure=None):
+        loss = None
+        if closure is not None:
+            loss = closure()
 
+        for group in self.param_groups:
+            for p in group['params']:
+                if p.grad is None:
+                    continue
+                grad = p.grad.data
+                if grad.is_sparse:
+                    raise RuntimeError('Rprop does not support sparse gradients')
+                state = self.state[p]
+
+                # State initialization
+                if len(state) == 0:
+                    state['step'] = 0
+                    state['prev'] = torch.zeros_like(p.data)
+                    state['step_size'] = grad.new().resize_as_(grad).fill_(group['lr'])
+
+                etaminus, etaplus = group['etas']
+                step_size_min, step_size_max = group['step_sizes']
+                step_size = state['step_size']
+
+                state['step'] += 1
+
+                sign = grad.mul(state['prev']).sign()
+                sign[sign.gt(0)] = etaplus
+                sign[sign.lt(0)] = etaminus
+                sign[sign.eq(0)] = 1
+
+                # update stepsizes with step size updates
+                step_size.mul_(sign).clamp_(step_size_min, step_size_max)
+                step_size -=
+
+                # for dir<0, dfdx=0
+                # for dir>=0 dfdx=dfdx
+                grad = grad.clone()
+                grad[sign.eq(etaminus)] = 0
+
+                # update parameters
+                p.data.addcmul_(-1, grad.sign(), step_size)
+
+                state['prev'].copy_(grad)
+
+        return loss
+    ############################################################################################
 
 # define regression model
 class Regression(nn.Module):
@@ -43,38 +88,69 @@ class Regression(nn.Module):
         self.input_size = input_size
         self.output_size = output_size
         self.n_hidden = 0
-        # all_to_output: the weights from all neurons to output neurons
-        self.all_to_output = My_Linear(input_size, output_size)
+        self.epoch = 0
+        self.input_to_output = nn.Linear(input_size, output_size)
+        # all_to_output: a list containing all Linears from all neurons to output neurons
+        self.all_to_output = []
         # all_to_hidden: a list containing all Linears from previous neurons to a hidden neuron
         self.all_to_hidden = []
+
+        # define optimizer TODO modified Rprop
+        self.optimizers = []
+        optimizer = torch.optim.Rprop(self.parameters(), lr=learning_rate_1)
+        self.optimizers.append(optimizer)
 
     def forward(self, x):   # size of x: (152, 20)
         install = False
         if self.n_hidden == 0:
             install = True
-        else:  # https://piazza.com/class/jsjthqq2z655mg?cid=177
+        else:  # TODO https://piazza.com/class/jsjthqq2z655mg?cid=177
             pass
 
         if install:
             all_to_new = nn.Linear(self.input_size+self.n_hidden, 1)
             self.all_to_hidden.append(all_to_new)
-            new_to_output = nn.Linear(1, self.output_size)
-            self.all_to_output.update(new_to_output)
+            new_to_output = nn.Linear(1, self.output_size, bias=False)
+            self.all_to_output.append(new_to_output)
+
+            # change learning rate of optimizers
+            if len(self.optimizers) == 1:
+                self.optimizers[0] = torch.optim.Rprop(self.parameters(), lr=learning_rate_3)
+            else:
+                self.optimizers[-2] = torch.optim.Rprop(self.optimizers[-2].param_groups, lr=learning_rate_3)
+                self.optimizers[-1] = torch.optim.Rprop(self.optimizers[-1].param_groups, lr=learning_rate_3)
+            self.optimizers.append(torch.optim.Rprop([new_to_output.weight], lr=learning_rate_2))
+            self.optimizers.append(torch.optim.Rprop([all_to_new.weight, all_to_new.bias], lr=learning_rate_1))
 
             self.n_hidden += 1
+            self.last_added = self.epoch
 
         # perform forward propagation from all previous neurons to each hidden neuron
-        neurons_val = torch.zeros((x.size(0), self.n_hidden))
-        neurons_val = torch.cat((x, neurons_val), 1)
+        neurons_all = x
         for i in range(self.n_hidden):
             linear = self.all_to_hidden[i]
-            neurons_val[:, i+self.input_size] = torch.squeeze(linear(neurons_val[:, :i+self.input_size]))
+            neuron = linear(neurons_all[:, :i+self.input_size])
+            neurons_all = torch.cat((neurons_all, neuron), 1)
 
         # perform forward propagation from all neurons to output neurons
-        print(self.all_to_output.weight.size())
-        print(neurons_val.size())
-        out = self.all_to_output(neurons_val)
+        logic = self.input_to_output(x)
+        for i in range(self.n_hidden):
+            logic = logic + self.all_to_output[i](neurons_all[:, i+self.input_size].unsqueeze(1))
+        out = torch.sigmoid(logic)
+        # print(self.n_hidden)
+
+        self.epoch += 1
         return out
+
+    # clear gradients, used before backward
+    def clear_grad(self):
+        for optimizer in self.optimizers:
+            optimizer.zero_grad()
+
+    # this is used for updating parameters
+    def step(self):
+        for optimizer in self.optimizers:
+            optimizer.step()
 
 
 # train the model, given X and Y
@@ -82,7 +158,7 @@ def train(X, Y, plot=True, to_print=False):
     # define regression model
     reg_model = Regression(input_size, output_size)
     # define optimiser
-    optimizer = torch.optim.Rprop(reg_model.parameters(), lr=learning_rate)
+
     # store all losses for visualisation
     all_losses = []
 
@@ -90,6 +166,7 @@ def train(X, Y, plot=True, to_print=False):
     for epoch in range(num_epochs):
         # perform forward pass: compute predicted y by passing x to the model
         Y_predicted = reg_model(X)
+
         # Y_predicted = Y_predicted.view(len(Y_predicted))
         # compute loss
         loss = loss_func(Y_predicted, Y)
@@ -100,11 +177,11 @@ def train(X, Y, plot=True, to_print=False):
             print('Training Epoch: [%d/%d], Loss: %.4f' % (epoch+1, num_epochs, loss.item()))
 
         # clear gradients before backward pass
-        optimizer.zero_grad()
+        reg_model.clear_grad()
         # perform backward pass
         loss.backward()
         # update parameters
-        optimizer.step()
+        reg_model.step()
 
     # plot the accuracy of model on training data
     if plot:

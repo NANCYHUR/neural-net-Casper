@@ -60,8 +60,6 @@ class Regression(nn.Module):
         self.linear2 = nn.Linear(hidden_size, output_size)
 
     def forward(self, x):
-        print(x.size())
-        print(self.linear1.weight.size())
         out = torch.sigmoid(self.linear1(x))
         out = self.linear2(out)
         return out
