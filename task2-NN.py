@@ -18,12 +18,12 @@ import matplotlib.pyplot as plt
 input_size = 20
 hidden_size = 12
 output_size = 4
-num_epochs = 500
+num_epochs = 1000
 learning_rate = 0.01
 k_cross_validation = 5
 
 # define loss function
-loss_func = nn.BCELoss()
+loss_func = nn.BCEWithLogitsLoss()
 
 
 # get train data, used in k-fold cross validation
@@ -34,8 +34,8 @@ def train_data(splitted_dt, i):
     train_input = train_dt.iloc[:, :input_size]
     train_target = train_dt.iloc[:, input_size:]
     # create Tensors to hold inputs and outputs
-    X = torch.Tensor(train_input.values).float()
-    Y = torch.Tensor(train_target.values).float()
+    X = torch.Tensor(train_input.values)
+    Y = torch.Tensor(train_target.values)
     return X, Y
 
 
@@ -47,8 +47,8 @@ def test_data(splitted_dt, i):
     test_input = test_dt.iloc[:, :input_size]
     test_target = test_dt.iloc[:, input_size:]
     # create Tensors to hold inputs and outputs
-    X = torch.Tensor(test_input.values).float()
-    Y = torch.Tensor(test_target.values).float()
+    X = torch.Tensor(test_input.values)
+    Y = torch.Tensor(test_target.values)
     return X, Y
 
 
@@ -61,12 +61,12 @@ class Regression(nn.Module):
 
     def forward(self, x):
         out = torch.sigmoid(self.linear1(x))
-        out = torch.sigmoid(self.linear2(out))
+        out = self.linear2(out)
         return out
 
 
 # train the model, given X and Y
-def train(X, Y, plot=True):
+def train(X, Y, plot=True, to_print=False):
     # define regression model
     reg_model = Regression(input_size, output_size)
     # define optimiser
@@ -84,7 +84,7 @@ def train(X, Y, plot=True):
         all_losses.append(loss.item())
 
         # print every 100 epochs
-        if (epoch + 1) % 100 == 0:
+        if (epoch + 1) % 100 == 0 and to_print:
             print('Training Epoch: [%d/%d], Loss: %.4f' % (epoch+1, num_epochs, loss.item()))
 
         # clear gradients before backward pass
@@ -98,7 +98,7 @@ def train(X, Y, plot=True):
     if plot:
         plt.figure()
         plt.plot(all_losses)
-        plt.title('accuracy of model on training data')
+        plt.title('losses of model on training data')
         plt.show()
 
     # print confusion matrix and correct percentage
@@ -106,24 +106,29 @@ def train(X, Y, plot=True):
     loss = loss_func(Y_predicted, Y)
     total_num = Y_predicted.size(0)
     confusion = confusion_matrix(Y, Y_predicted)
-    print('Confusion matrix for training:')
-    print(confusion[0])
-    print('Correct percentage in training data:', (100*float(confusion[1]))/total_num)
+    correctness = (100 * float(confusion[1])) / total_num
+    if to_print:
+        print('Confusion matrix for training:')
+        print(confusion[0])
+        print('Correct percentage in training data:', (100*float(confusion[1]))/total_num)
 
-    return reg_model, loss
+    return reg_model, loss, correctness
 
 
 # perform testing on trained model, print test loss, confusion matrix and correctness
-def test(X_test, Y_test, reg_model):
+def test(X_test, Y_test, reg_model, to_print=False):
     Y_predicted_test = reg_model(X_test)
     test_loss = loss_func(Y_predicted_test, Y_test)
-    print('test loss: %f' % test_loss.item())
+    if to_print:
+        print('test loss: %f' % test_loss.item())
     total_num = Y_test.size(0)
     confusion = confusion_matrix(Y_predicted_test, Y_test)
-    print('Confusion matrix for testing:')
-    print(confusion[0])
-    print('Correct percentage in testing data:', (100*float(confusion[1]))/total_num)
-    return test_loss
+    correctness = (100*float(confusion[1]))/total_num
+    if to_print:
+        print('Confusion matrix for testing:')
+        print(confusion[0])
+        print('Correct percentage in testing data:', correctness)
+    return test_loss, correctness
 
 
 # calculate confusion matrix, need to interpret output data into category
@@ -146,22 +151,54 @@ data = pre_process()
 # split data for later use (k cross validation)
 splitted_data = np.split(data, k_cross_validation)
 
-# turn plot on TODO: something wrong, there is no plot
-plt.ion()
-
 # train using cross validation
-all_losses = []
+all_train_losses = []
+all_test_losses = []
+all_train_correctness = []
+all_test_correctness = []
 for i in range(k_cross_validation):
     # extract train and test data, split input and target
     X_train, Y_train = train_data(splitted_data, i)
     X_test, Y_test = test_data(splitted_data, i)
 
     # train the model and print loss, confusion matrix and correctness
-    reg_model, loss = train(X_train, Y_train)
+    reg_model, loss, correctness = train(X_train, Y_train, plot=False)
 
     # test the model on test data
-    test_loss = test(X_test, Y_test, reg_model)
+    test_loss, test_correctness = test(X_test, Y_test, reg_model)
 
-    all_losses.append((loss, test_loss))
+    # append losses and correctness
+    all_train_losses.append(loss)
+    all_test_losses.append(test_loss)
+    all_train_correctness.append(correctness)
+    all_test_correctness.append(test_correctness)
 
-# TODO: grab the lowest loss, stick to that model (print result)j
+# print average loss and correctness on training and testing data
+train_loss_avg = (sum(all_train_losses) / len(all_train_losses)).item()
+test_loss_avg = (sum(all_test_losses) / len(all_test_losses)).item()
+print('average loss on training data', train_loss_avg)
+print('average loss on testing data', test_loss_avg)
+train_correctness_avg = sum(all_train_correctness) / len(all_train_correctness)
+test_correctness_avg = sum(all_test_correctness) / len(all_test_correctness)
+print('average correctness on training data', train_correctness_avg)
+print('average correctness on testing data', test_correctness_avg)
+
+# display performance of each model
+# losses
+plt.figure()
+plt.plot(all_train_losses, label='training data', color='blue')
+plt.plot(all_test_losses, label='testing data', color='red')
+plt.axhline(y=train_loss_avg, linestyle=':', label='training data average loss', color='blue')
+plt.axhline(y=test_loss_avg, linestyle=':', label='testing data average loss', color='red')
+plt.legend()
+plt.title('losses of model on training and testing data')
+plt.show()
+# correctness
+plt.figure()
+plt.plot(all_train_correctness, label='training data', color='blue')
+plt.plot(all_test_correctness, label='testing data', color='red')
+plt.axhline(y=train_correctness_avg, linestyle=':', label='training data average correctness', color='blue')
+plt.axhline(y=test_correctness_avg, linestyle=':', label='testing data average correctness', color='red')
+plt.legend()
+plt.title('correctness of model on training and testing data')
+plt.show()
