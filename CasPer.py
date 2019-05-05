@@ -6,7 +6,7 @@ The dataset is naturally a classification problem, however, we modify it into
 a regression problem by equilateral coding, to avoid difficult learning.
 """
 
-from preprocessing import pre_process, interpret_output
+from preprocessing import pre_process
 from NN import confusion_matrix, train_data, test_data
 import numpy as np
 import torch
@@ -19,7 +19,7 @@ run_time = 100
 # hyper parameters
 input_size = 20
 output_size = 4
-num_neurons = 12
+num_neurons = 14
 learning_rate_1 = 0.2
 learning_rate_2 = 0.005
 learning_rate_3 = 0.001
@@ -241,23 +241,23 @@ for t in range(run_time):
 
     # display performance of each model
     # losses
-    # plt.figure()
-    # plt.plot(all_train_losses, label='training data', color='blue')
-    # plt.plot(all_test_losses, label='testing data', color='red')
-    # plt.axhline(y=train_loss_avg, linestyle=':', label='training data average loss', color='blue')
-    # plt.axhline(y=test_loss_avg, linestyle=':', label='testing data average loss', color='red')
-    # plt.legend()
-    # plt.title('losses of model on training and testing data')
-    # plt.show()
-    # # correctness
-    # plt.figure()
-    # plt.plot(all_train_correctness, label='training data', color='blue')
-    # plt.plot(all_test_correctness, label='testing data', color='red')
-    # plt.axhline(y=train_correctness_avg, linestyle=':', label='training data average correctness', color='blue')
-    # plt.axhline(y=test_correctness_avg, linestyle=':', label='testing data average correctness', color='red')
-    # plt.legend()
-    # plt.title('correctness of model on training and testing data')
-    # plt.show()
+    plt.figure()
+    plt.plot(all_train_losses, label='training data', color='blue')
+    plt.plot(all_test_losses, label='testing data', color='red')
+    plt.axhline(y=train_loss_avg, linestyle=':', label='training data average loss', color='blue')
+    plt.axhline(y=test_loss_avg, linestyle=':', label='testing data average loss', color='red')
+    plt.legend()
+    plt.title('losses of model on training and testing data')
+    plt.show()
+    # correctness
+    plt.figure()
+    plt.plot(all_train_correctness, label='training data', color='blue')
+    plt.plot(all_test_correctness, label='testing data', color='red')
+    plt.axhline(y=train_correctness_avg, linestyle=':', label='training data average correctness', color='blue')
+    plt.axhline(y=test_correctness_avg, linestyle=':', label='testing data average correctness', color='red')
+    plt.legend()
+    plt.title('correctness of model on training and testing data')
+    plt.show()
 
 print("highest test correctness rate over 100 runs:", highest_test_correctness)
 print("corresponding training correctness rate:", train_correctness)
