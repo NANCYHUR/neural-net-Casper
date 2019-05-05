@@ -1,6 +1,6 @@
 """
 This script builds a neural network for classifying forest supra-type based on
-dataset: GIS.
+dataset: GIS. Additionally, Bimodal Distribution Removal technique is applied.
 
 The dataset is naturally a classification problem, however, we modify it into
 a regression problem by equilateral coding, to avoid difficult learning.
@@ -22,8 +22,13 @@ num_epochs = 1000
 learning_rate = 0.01
 k_cross_validation = 5
 
+# parameters for Bimodal Distribution Removal
+variance_thresh = 0.00001
+variance_thresh_halting = 0.000001
+alpha = 0.5
+
 # define loss function
-loss_func = nn.MSELoss()
+loss_func = nn.MSELoss(reduction='none')
 
 
 # get train data, used in k-fold cross validation
@@ -81,7 +86,8 @@ def train(X, Y, plot=True, to_print=False):
 
         # compute loss
         loss = loss_func(Y_predicted, Y)
-        all_losses.append(loss.item())
+        loss_avg = torch.mean(loss)
+        all_losses.append(loss_avg.item())
 
         # print every 100 epochs
         if (epoch + 1) % 100 == 0 and to_print:
@@ -89,10 +95,28 @@ def train(X, Y, plot=True, to_print=False):
 
         # clear gradients before backward pass
         optimizer.zero_grad()
+
         # perform backward pass
-        loss.backward()
+        loss_avg.backward()
+
         # update parameters
         optimizer.step()
+
+        # apply the techinqiue: Bimodal Distribution Removal
+        if epoch % 50 == 0:
+            losses = torch.mean(loss, dim=1)
+            # plt.figure()
+            # plt.hist(x=losses.detach().numpy(), bins='auto')
+            # plt.show()
+            variance = torch.var(losses)
+            if variance.item() < variance_thresh_halting:
+                break  # halt to avoid overfitting
+            std = torch.std(loss)
+            error_thresh = loss_avg + std.item() * alpha
+            survived_indices = [i for i in range(len(loss)) if losses[i].item() < error_thresh]
+            indices = torch.LongTensor(survived_indices)
+            X = X[indices]
+            Y = Y[indices]
 
     # plot the accuracy of model on training data
     if plot:
@@ -104,6 +128,7 @@ def train(X, Y, plot=True, to_print=False):
     # print confusion matrix and correct percentage
     Y_predicted = reg_model(X)
     loss = loss_func(Y_predicted, Y)
+    loss_avg = torch.mean(loss).item()
     total_num = Y_predicted.size(0)
     confusion = confusion_matrix(Y, Y_predicted)
     correctness = (100 * float(confusion[1])) / total_num
@@ -112,13 +137,14 @@ def train(X, Y, plot=True, to_print=False):
         print(confusion[0])
         print('Correct percentage in training data:', (100*float(confusion[1]))/total_num)
 
-    return reg_model, loss, correctness
+    return reg_model, loss_avg, correctness
 
 
 # perform testing on trained model, print test loss, confusion matrix and correctness
 def test(X_test, Y_test, reg_model, to_print=False):
     Y_predicted_test = reg_model(X_test)
     test_loss = loss_func(Y_predicted_test, Y_test)
+    test_loss_avg = torch.mean(test_loss).item()
     if to_print:
         print('test loss: %f' % test_loss.item())
     total_num = Y_test.size(0)
@@ -128,7 +154,7 @@ def test(X_test, Y_test, reg_model, to_print=False):
         print('Confusion matrix for testing:')
         print(confusion[0])
         print('Correct percentage in testing data:', correctness)
-    return test_loss, correctness
+    return test_loss_avg, correctness
 
 
 # calculate confusion matrix, need to interpret output data into category
@@ -175,8 +201,9 @@ if __name__ == "__main__":
         all_test_correctness.append(test_correctness)
 
     # print average loss and correctness on training and testing data
-    train_loss_avg = (sum(all_train_losses) / len(all_train_losses)).item()
-    test_loss_avg = (sum(all_test_losses) / len(all_test_losses)).item()
+    print(all_train_losses)
+    train_loss_avg = (sum(all_train_losses) / len(all_train_losses))
+    test_loss_avg = (sum(all_test_losses) / len(all_test_losses))
     print('average loss on training data', train_loss_avg)
     print('average loss on testing data', test_loss_avg)
     train_correctness_avg = sum(all_train_correctness) / len(all_train_correctness)

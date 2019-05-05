@@ -9,87 +9,36 @@ a regression problem by equilateral coding, to avoid difficult learning.
 from preprocessing import pre_process, interpret_output
 from NN import confusion_matrix, train_data, test_data
 import numpy as np
-import pandas as pd
 import torch
 import torch.nn as nn
 import matplotlib.pyplot as plt
+import math
 
 # hyper parameters
 input_size = 20
 output_size = 4
-num_epochs = 500
+num_neurons = 12
 learning_rate_1 = 0.2
 learning_rate_2 = 0.005
 learning_rate_3 = 0.001
 k_cross_validation = 5
+p_value = 4
 
 # define loss function
-loss_func = nn.BCEWithLogitsLoss()
+loss_func = nn.MSELoss()
 
-
-# define SARprop
-class SARprop(torch.optim.Rprop):
-    def __init__(self, params, lr=1e-2, etas=(0.5, 1.2), step_sizes=(1e-6, 50)):
-        super(SARprop, self).__init__()
-
-    ############# most of the following code is modified from torch.optim.rprop #############
-    def step(self, closure=None):
-        loss = None
-        if closure is not None:
-            loss = closure()
-
-        for group in self.param_groups:
-            for p in group['params']:
-                if p.grad is None:
-                    continue
-                grad = p.grad.data
-                if grad.is_sparse:
-                    raise RuntimeError('Rprop does not support sparse gradients')
-                state = self.state[p]
-
-                # State initialization
-                if len(state) == 0:
-                    state['step'] = 0
-                    state['prev'] = torch.zeros_like(p.data)
-                    state['step_size'] = grad.new().resize_as_(grad).fill_(group['lr'])
-
-                etaminus, etaplus = group['etas']
-                step_size_min, step_size_max = group['step_sizes']
-                step_size = state['step_size']
-
-                state['step'] += 1
-
-                sign = grad.mul(state['prev']).sign()
-                sign[sign.gt(0)] = etaplus
-                sign[sign.lt(0)] = etaminus
-                sign[sign.eq(0)] = 1
-
-                # update stepsizes with step size updates
-                step_size.mul_(sign).clamp_(step_size_min, step_size_max)
-                step_size -=
-
-                # for dir<0, dfdx=0
-                # for dir>=0 dfdx=dfdx
-                grad = grad.clone()
-                grad[sign.eq(etaminus)] = 0
-
-                # update parameters
-                p.data.addcmul_(-1, grad.sign(), step_size)
-
-                state['prev'].copy_(grad)
-
-        return loss
-    ############################################################################################
 
 # define regression model
 class Regression(nn.Module):
-    def __init__(self, input_size, output_size):
+    def __init__(self, input_size, output_size, all_losses, num_neurons, p_value):
         super(Regression, self).__init__()
         self.input_size = input_size
         self.output_size = output_size
         self.n_hidden = 0
-        self.epoch = 0
+        self.losses = all_losses
+        self.num_neurons = num_neurons
         self.input_to_output = nn.Linear(input_size, output_size)
+        self.p = p_value
         # all_to_output: a list containing all Linears from all neurons to output neurons
         self.all_to_output = []
         # all_to_hidden: a list containing all Linears from previous neurons to a hidden neuron
@@ -101,13 +50,22 @@ class Regression(nn.Module):
         self.optimizers.append(optimizer)
 
     def forward(self, x):   # size of x: (152, 20)
-        install = False
-        if self.n_hidden == 0:
-            install = True
-        else:  # TODO https://piazza.com/class/jsjthqq2z655mg?cid=177
-            pass
+        if self.n_hidden == 0 or len(self.losses) < 2:
+            self.install = True
+        elif self.current_neuron_epoch<15+self.p*self.n_hidden:
+            self.install = False
+        else:
+            loss1 = self.losses[-1]
+            loss2 = self.losses[-2]
+            rms1 = math.sqrt(loss1)
+            rms2 = math.sqrt(loss2)
+            decrease = (rms2 - rms1) / rms2
+            self.install = 0 < decrease <= 0.01
 
-        if install:
+        if self.install:
+            if self.n_hidden == self.num_neurons:
+                self.n_hidden -= 1
+                return None
             all_to_new = nn.Linear(self.input_size+self.n_hidden, 1)
             self.all_to_hidden.append(all_to_new)
             new_to_output = nn.Linear(1, self.output_size, bias=False)
@@ -115,15 +73,21 @@ class Regression(nn.Module):
 
             # change learning rate of optimizers
             if len(self.optimizers) == 1:
-                self.optimizers[0] = torch.optim.Rprop(self.parameters(), lr=learning_rate_3)
+                optim = self.optimizers[0]
+                for g in optim.param_groups:
+                    g['lr'] = learning_rate_3
             else:
-                self.optimizers[-2] = torch.optim.Rprop(self.optimizers[-2].param_groups, lr=learning_rate_3)
-                self.optimizers[-1] = torch.optim.Rprop(self.optimizers[-1].param_groups, lr=learning_rate_3)
+                optim = self.optimizers[-2]
+                for g in optim.param_groups:
+                    g['lr'] = learning_rate_3
+                optim = self.optimizers[-1]
+                for g in optim.param_groups:
+                    g['lr'] = learning_rate_3
             self.optimizers.append(torch.optim.Rprop([new_to_output.weight], lr=learning_rate_2))
             self.optimizers.append(torch.optim.Rprop([all_to_new.weight, all_to_new.bias], lr=learning_rate_1))
 
             self.n_hidden += 1
-            self.last_added = self.epoch
+            self.current_neuron_epoch = 0
 
         # perform forward propagation from all previous neurons to each hidden neuron
         neurons_all = x
@@ -137,9 +101,9 @@ class Regression(nn.Module):
         for i in range(self.n_hidden):
             logic = logic + self.all_to_output[i](neurons_all[:, i+self.input_size].unsqueeze(1))
         out = torch.sigmoid(logic)
-        # print(self.n_hidden)
 
-        self.epoch += 1
+        self.current_neuron_epoch += 1
+
         return out
 
     # clear gradients, used before backward
@@ -154,27 +118,29 @@ class Regression(nn.Module):
 
 
 # train the model, given X and Y
-def train(X, Y, plot=True, to_print=False):
-    # define regression model
-    reg_model = Regression(input_size, output_size)
-    # define optimiser
-
+def train(X, Y, plot=False, to_print=False):
     # store all losses for visualisation
     all_losses = []
 
+    # define regression model
+    reg_model = Regression(input_size, output_size, all_losses, num_neurons, p_value)
+
     # start training
-    for epoch in range(num_epochs):
+    while True:
         # perform forward pass: compute predicted y by passing x to the model
         Y_predicted = reg_model(X)
+
+        if Y_predicted is None:
+            break
 
         # Y_predicted = Y_predicted.view(len(Y_predicted))
         # compute loss
         loss = loss_func(Y_predicted, Y)
         all_losses.append(loss.item())
 
-        # print every 100 epochs
-        if (epoch + 1) % 100 == 0 and to_print:
-            print('Training Epoch: [%d/%d], Loss: %.4f' % (epoch+1, num_epochs, loss.item()))
+        # print every neuron
+        if reg_model.install and reg_model.n_hidden != 1 and to_print:
+            print('Training Neuron: [%d/%d], Loss: %.4f' % (reg_model.n_hidden, num_neurons, all_losses[-2]))
 
         # clear gradients before backward pass
         reg_model.clear_grad()
@@ -238,7 +204,7 @@ for i in range(k_cross_validation):
     X_test, Y_test = test_data(splitted_data, i)
 
     # train the model and print loss, confusion matrix and correctness
-    reg_model, loss, correctness = train(X_train, Y_train, plot=False)
+    reg_model, loss, correctness = train(X_train, Y_train)
 
     # test the model on test data
     test_loss, test_correctness = test(X_test, Y_test, reg_model)
@@ -261,20 +227,20 @@ print('average correctness on testing data', test_correctness_avg)
 
 # display performance of each model
 # losses
-plt.figure()
-plt.plot(all_train_losses, label='training data', color='blue')
-plt.plot(all_test_losses, label='testing data', color='red')
-plt.axhline(y=train_loss_avg, linestyle=':', label='training data average loss', color='blue')
-plt.axhline(y=test_loss_avg, linestyle=':', label='testing data average loss', color='red')
-plt.legend()
-plt.title('losses of model on training and testing data')
-plt.show()
-# correctness
-plt.figure()
-plt.plot(all_train_correctness, label='training data', color='blue')
-plt.plot(all_test_correctness, label='testing data', color='red')
-plt.axhline(y=train_correctness_avg, linestyle=':', label='training data average correctness', color='blue')
-plt.axhline(y=test_correctness_avg, linestyle=':', label='testing data average correctness', color='red')
-plt.legend()
-plt.title('correctness of model on training and testing data')
-plt.show()
+# plt.figure()
+# plt.plot(all_train_losses, label='training data', color='blue')
+# plt.plot(all_test_losses, label='testing data', color='red')
+# plt.axhline(y=train_loss_avg, linestyle=':', label='training data average loss', color='blue')
+# plt.axhline(y=test_loss_avg, linestyle=':', label='testing data average loss', color='red')
+# plt.legend()
+# plt.title('losses of model on training and testing data')
+# plt.show()
+# # correctness
+# plt.figure()
+# plt.plot(all_train_correctness, label='training data', color='blue')
+# plt.plot(all_test_correctness, label='testing data', color='red')
+# plt.axhline(y=train_correctness_avg, linestyle=':', label='training data average correctness', color='blue')
+# plt.axhline(y=test_correctness_avg, linestyle=':', label='testing data average correctness', color='red')
+# plt.legend()
+# plt.title('correctness of model on training and testing data')
+# plt.show()
