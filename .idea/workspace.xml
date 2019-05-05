@@ -2,10 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c442f2ce-cdad-4d38-a8cf-330ebacc5c40" name="Default" comment="">
-      <change beforePath="" afterPath="$PROJECT_DIR$/BiModal.py" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/CasPerBimodal.py" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/CasPer.py" afterPath="$PROJECT_DIR$/CasPer.py" />
-      <change beforePath="$PROJECT_DIR$/NN.py" afterPath="$PROJECT_DIR$/NN.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -15,76 +13,118 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="preprocessing.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/preprocessing.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="536">
-              <caret line="115" column="0" lean-forward="true" selection-start-line="115" selection-start-column="0" selection-end-line="115" selection-end-column="0" />
-              <folding>
-                <element signature="e#28#47#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="NN.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/NN.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="476">
-              <caret line="81" column="0" lean-forward="false" selection-start-line="81" selection-start-column="0" selection-end-line="81" selection-end-column="0" />
-              <folding>
-                <element signature="e#254#309#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="loss.py" pinned="false" current-in-tab="false">
-        <entry file="file://$USER_HOME$/anaconda3/lib/python3.7/site-packages/torch/nn/modules/loss.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="428">
-              <caret line="434" column="22" lean-forward="true" selection-start-line="434" selection-start-column="22" selection-end-line="434" selection-end-column="22" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="functional.py" pinned="false" current-in-tab="false">
-        <entry file="file://$USER_HOME$/anaconda3/lib/python3.7/site-packages/torch/nn/functional.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="211">
-              <caret line="2139" column="65" lean-forward="false" selection-start-line="2139" selection-start-column="65" selection-end-line="2139" selection-end-column="65" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="CasPer.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/CasPer.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="236">
-              <caret line="225" column="63" lean-forward="false" selection-start-line="225" selection-start-column="63" selection-end-line="225" selection-end-column="63" />
-              <folding>
-                <element signature="e#276#331#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="BiModal.py" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/BiModal.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="253">
-              <caret line="105" column="27" lean-forward="true" selection-start-line="105" selection-start-column="27" selection-end-line="105" selection-end-column="27" />
-              <folding>
-                <element signature="e#319#374#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <splitter split-orientation="horizontal" split-proportion="0.5">
+      <split-first>
+        <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+          <file leaf-file-name="preprocessing.py" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/preprocessing.py">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="536">
+                  <caret line="115" column="0" lean-forward="true" selection-start-line="115" selection-start-column="0" selection-end-line="115" selection-end-column="0" />
+                  <folding>
+                    <element signature="e#28#47#0" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="NN.py" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/NN.py">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="135">
+                  <caret line="147" column="26" lean-forward="true" selection-start-line="147" selection-start-column="26" selection-end-line="147" selection-end-column="26" />
+                  <folding>
+                    <element signature="e#254#309#0" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="loss.py" pinned="false" current-in-tab="false">
+            <entry file="file://$USER_HOME$/anaconda3/lib/python3.7/site-packages/torch/nn/modules/loss.py">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="428">
+                  <caret line="434" column="22" lean-forward="true" selection-start-line="434" selection-start-column="22" selection-end-line="434" selection-end-column="22" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="functional.py" pinned="false" current-in-tab="false">
+            <entry file="file://$USER_HOME$/anaconda3/lib/python3.7/site-packages/torch/nn/functional.py">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="211">
+                  <caret line="2139" column="65" lean-forward="false" selection-start-line="2139" selection-start-column="65" selection-end-line="2139" selection-end-column="65" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="CasPer.py" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/CasPer.py">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="326">
+                  <caret line="30" column="25" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="245" selection-end-column="12" />
+                  <folding>
+                    <element signature="e#276#331#0" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="CasPerBimodal.py" pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/CasPerBimodal.py">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="216">
+                  <caret line="240" column="61" lean-forward="false" selection-start-line="240" selection-start-column="61" selection-end-line="240" selection-end-column="61" />
+                  <folding>
+                    <element signature="e#276#331#0" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="gis-citation.txt" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/GIS/gis-citation.txt">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="15">
+                  <caret line="1" column="0" lean-forward="true" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="BiModal.py" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/BiModal.py">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="1234">
+                  <caret line="103" column="0" lean-forward="true" selection-start-line="103" selection-start-column="0" selection-end-line="103" selection-end-column="0" />
+                  <folding>
+                    <element signature="e#319#374#0" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+        </leaf>
+      </split-first>
+      <split-second>
+        <leaf>
+          <file leaf-file-name="BiModal.py" pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/BiModal.py">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="-635">
+                  <caret line="140" column="0" lean-forward="true" selection-start-line="140" selection-start-column="0" selection-end-line="140" selection-end-column="0" />
+                  <folding>
+                    <element signature="e#319#374#0" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+        </leaf>
+      </split-second>
+    </splitter>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -115,10 +155,12 @@
         <option value="$PROJECT_DIR$/CasPer.py" />
         <option value="$PROJECT_DIR$/NN.py" />
         <option value="$PROJECT_DIR$/BiModal.py" />
+        <option value="$PROJECT_DIR$/Cascor.py" />
+        <option value="$PROJECT_DIR$/CasPerBimodal.py" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6" fullScreen="true">
+  <component name="ProjectFrameBounds" fullScreen="true">
     <option name="x" value="1641" />
     <option name="width" value="279" />
     <option name="height" value="1080" />
@@ -159,6 +201,11 @@
               <item name="comp4660-assignment1" type="b2602c69:ProjectViewProjectNode" />
               <item name="comp4660-assignment1" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="comp4660-assignment1" type="b2602c69:ProjectViewProjectNode" />
+              <item name="comp4660-assignment1" type="462c0819:PsiDirectoryNode" />
+              <item name="GIS" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
@@ -183,7 +230,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.Bimodal">
+  <component name="RunManager" selected="Python.Casper-Bimodal">
     <configuration name="Bimodal" type="PythonConfigurationType" factoryName="Python">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -215,6 +262,24 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <module name="comp4660-assignment1" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/CasPer.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+    </configuration>
+    <configuration name="Casper-Bimodal" type="PythonConfigurationType" factoryName="Python">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="$USER_HOME$/anaconda3/bin/python" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="comp4660-assignment1" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/CasPerBimodal.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -310,7 +375,7 @@
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
     </configuration>
-    <list size="7">
+    <list size="8">
       <item index="0" class="java.lang.String" itemvalue="Python.Bimodal" />
       <item index="1" class="java.lang.String" itemvalue="Python.NN" />
       <item index="2" class="java.lang.String" itemvalue="Python.lab1.2_task1" />
@@ -318,6 +383,7 @@
       <item index="4" class="java.lang.String" itemvalue="Python.lab3_regression" />
       <item index="5" class="java.lang.String" itemvalue="Python.lab2_task2_glass_dataloader" />
       <item index="6" class="java.lang.String" itemvalue="Python.CasPer" />
+      <item index="7" class="java.lang.String" itemvalue="Python.Casper-Bimodal" />
     </list>
     <recent_temporary>
       <list size="4">
@@ -359,9 +425,9 @@
     </history-entry>
   </component>
   <component name="ToolWindowManager">
-    <frame x="1406" y="0" width="514" height="1080" extended-state="6" />
+    <frame x="0" y="0" width="1920" height="1080" extended-state="0" />
     <layout>
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.37931034" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.09847288" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3286991" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -693,10 +759,26 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/Cascor.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="350">
+          <caret line="54" column="19" lean-forward="false" selection-start-line="54" selection-start-column="19" selection-end-line="54" selection-end-column="19" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/GIS/gis-citation.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="15">
+          <caret line="1" column="0" lean-forward="true" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/NN.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="476">
-          <caret line="81" column="0" lean-forward="false" selection-start-line="81" selection-start-column="0" selection-end-line="81" selection-end-column="0" />
+        <state relative-caret-position="135">
+          <caret line="147" column="26" lean-forward="true" selection-start-line="147" selection-start-column="26" selection-end-line="147" selection-end-column="26" />
           <folding>
             <element signature="e#254#309#0" expanded="true" />
           </folding>
@@ -705,8 +787,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/CasPer.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="236">
-          <caret line="225" column="63" lean-forward="false" selection-start-line="225" selection-start-column="63" selection-end-line="225" selection-end-column="63" />
+        <state relative-caret-position="326">
+          <caret line="30" column="25" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="245" selection-end-column="12" />
           <folding>
             <element signature="e#276#331#0" expanded="true" />
           </folding>
@@ -715,10 +797,20 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/BiModal.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="253">
-          <caret line="105" column="27" lean-forward="true" selection-start-line="105" selection-start-column="27" selection-end-line="105" selection-end-column="27" />
+        <state relative-caret-position="1234">
+          <caret line="103" column="0" lean-forward="true" selection-start-line="103" selection-start-column="0" selection-end-line="103" selection-end-column="0" />
           <folding>
             <element signature="e#319#374#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CasPerBimodal.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="216">
+          <caret line="240" column="61" lean-forward="false" selection-start-line="240" selection-start-column="61" selection-end-line="240" selection-end-column="61" />
+          <folding>
+            <element signature="e#276#331#0" expanded="true" />
           </folding>
         </state>
       </provider>
