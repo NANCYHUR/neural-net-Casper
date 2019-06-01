@@ -6,7 +6,7 @@ The dataset is naturally a classification problem, however, we modify it into
 a regression problem by equilateral coding, to avoid difficult learning.
 """
 
-from preprocessing import pre_process, interpret_output
+from preprocessing import pre_process
 from NN import confusion_matrix, train_data, test_data
 import numpy as np
 import torch

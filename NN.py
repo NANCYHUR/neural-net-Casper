@@ -13,13 +13,14 @@ import torch
 import torch.nn as nn
 import matplotlib.pyplot as plt
 
-run_time = 100
+run_times = 20
+plot_each_run = False
 
 # hyper parameters
 input_size = 20
 hidden_size = 12
 output_size = 4
-num_epochs = 1000
+num_epochs = 300
 learning_rate = 0.01
 k_cross_validation = 5
 
@@ -151,7 +152,7 @@ if __name__ == "__main__":
     train_correctness = 0
     test_loss_best = 0
     train_loss_best = 0
-    for t in range(run_time):
+    for t in range(run_times):
         # pre-process the data, using the function defined in preprocessing.py
         data = pre_process()
 
@@ -181,6 +182,7 @@ if __name__ == "__main__":
             all_test_correctness.append(test_correctness)
 
         # print average loss and correctness on training and testing data
+        print("run number {}".format(str(t)))
         train_loss_avg = (sum(all_train_losses) / len(all_train_losses)).item()
         test_loss_avg = (sum(all_test_losses) / len(all_test_losses)).item()
         print('average loss on training data', train_loss_avg)
@@ -189,6 +191,7 @@ if __name__ == "__main__":
         test_correctness_avg = sum(all_test_correctness) / len(all_test_correctness)
         print('average correctness on training data', train_correctness_avg)
         print('average correctness on testing data', test_correctness_avg)
+        print('')
 
         # update highest
         if test_correctness_avg > highest_test_correctness:
@@ -198,24 +201,25 @@ if __name__ == "__main__":
             train_loss_best = train_loss_avg
 
         # display performance of each model
-        # losses
-        plt.figure()
-        plt.plot(all_train_losses, label='training data', color='blue')
-        plt.plot(all_test_losses, label='testing data', color='red')
-        plt.axhline(y=train_loss_avg, linestyle=':', label='training data average loss', color='blue')
-        plt.axhline(y=test_loss_avg, linestyle=':', label='testing data average loss', color='red')
-        plt.legend()
-        plt.title('losses of model on training and testing data')
-        plt.show()
-        # correctness
-        plt.figure()
-        plt.plot(all_train_correctness, label='training data', color='blue')
-        plt.plot(all_test_correctness, label='testing data', color='red')
-        plt.axhline(y=train_correctness_avg, linestyle=':', label='training data average correctness', color='blue')
-        plt.axhline(y=test_correctness_avg, linestyle=':', label='testing data average correctness', color='red')
-        plt.legend()
-        plt.title('correctness of model on training and testing data')
-        plt.show()
+        if plot_each_run:
+            # losses
+            plt.figure()
+            plt.plot(all_train_losses, label='training data', color='blue')
+            plt.plot(all_test_losses, label='testing data', color='red')
+            plt.axhline(y=train_loss_avg, linestyle=':', label='training data average loss', color='blue')
+            plt.axhline(y=test_loss_avg, linestyle=':', label='testing data average loss', color='red')
+            plt.legend()
+            plt.title('losses of model on training and testing data')
+            plt.show()
+            # correctness
+            plt.figure()
+            plt.plot(all_train_correctness, label='training data', color='blue')
+            plt.plot(all_test_correctness, label='testing data', color='red')
+            plt.axhline(y=train_correctness_avg, linestyle=':', label='training data average correctness', color='blue')
+            plt.axhline(y=test_correctness_avg, linestyle=':', label='testing data average correctness', color='red')
+            plt.legend()
+            plt.title('correctness of model on training and testing data')
+            plt.show()
 
     print("highest test correctness rate over 100 runs:", highest_test_correctness)
     print("corresponding training correctness rate:", train_correctness)

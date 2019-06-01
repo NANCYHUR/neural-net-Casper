@@ -1,101 +1,84 @@
------------------------ REVIEW 1 ---------------------
-SUBMISSION: 53
-TITLE: Classifying Forest Supra-type from Augmented Satellite Data: Comparing Simple Neural Network, Bimodal and CasPer Techniques
-AUTHORS: Jiawen He
-
------------ Overall evaluation -----------
-SCORE: -1 (weak reject)
------ TEXT:
-This paper conducts experiments on geographical data using neural networks. It compares the performances of various network structures with different optimization techniques. It demonstrates that Casper networks generalises better than standard predetermined neural networks but does not benefit much from bimodal distribution reductions.
-
-The abstract of the paper should introduce the problem it solves and motivations behind the task. While it does address the approaches taken in the paper, it would be better if it also included the reasons for conducting this research and contributions it made. Chapter 1 claims that geographical data is "become intensely important for various applications and research work." but fails to provide any references or proofs for its claim, try to support any claims with references as much as possible. The introduction chapter shares the same problem as the abstract, it does not include any background literature regarding the techniques used and the problem it's trying to solve. Good presentation on the pre-processing done on the data, however it belongs more towards the methods sections rather than introduction section. 
-
-Good justifications over the model selection and hyperparameter selection for the base neural network in chapter 2.1. However little information about the Casper network was included in chapter 2.2, it should not assume that the reader would have a background in working with Casper networks. It would also be helpful if details about the Casper network was included so that it would be easy to replicate the experiment. Chapter 2.3 has similar issues to chapter 2.2, that it does not include any details about the bimodal distribution removal technique that it used, how it is implemented in the experiment. The methods chapter should also include details on how the results are evaluated and justification over the methodology.
-
-Chapter 3 presents a detailed table of best results over 100 runs, it would be nice if the average result over the 100 runs was also included, to demonstrate the consistencies of the results. Regarding performances of the vanilla neural network, in table 3.1 it is rather clear that the network may have overfitted on the training data judging by the difference between its accuracies on training and testing data. It might be worthwhile investigating this problem, as it may contribute to the relatively low generalization power of the vanilla neural network. It is unclear what table 3.2 is showing, using a caption for a brief description would be helpful.
-
-Some issues addressed in chapter 4 should belong in the results and discussion chapter, such as discussing the possible causes for the low impact of Casper and bimodal techniques. Future works should be possible extensions from the current step or addressing the flaws or perfecting the experimental techniques in the current paper, not so much about adjusting hyperparameters.
-
-
-Try not to make references the subject of a sentence, such as "the neural network described in [2]", it makes it rather hard to follow and understand what it is referring to. Some sentences should be reviewed or checked for misspelling, such as "There is a lot for use to experiment on.".
-
-
-
------------------------ REVIEW 2 ---------------------
-SUBMISSION: 53
-TITLE: Classifying Forest Supra-type from Augmented Satellite Data: Comparing Simple Neural Network, Bimodal and CasPer Techniques
-AUTHORS: Jiawen He
-
------------ Overall evaluation -----------
-SCORE: 0 (borderline paper)
------ TEXT:
-Brief Summary
-This paper proposes three different neural networks to classify the forest supra-type from geographical features given a small dataset: a vanilla neural network, a neural network implemented CasPer technique and a neural network implemented both CasPer and Bimodal Distribution Removal (BDR) techniques. With the comparison of the three networks, the paper illustrates that both CasPer and BDR techniques can improve the learning process, but with no significant progress. The research conducted in this paper gives us an evaluation of training neural networks using CasPer and BDR when the size of the dataset is very limited. 
-
-Major Criticisms and General Comments
-Overall, the paper is organized clearly with separated sections and is easy to understand. However, this paper does not have an introduction section, which could provide a literature review and give readers the background, motivation and aim of the work. Also, it would be better if section 1 “Data and Preprocessing” is placed as a sub-section under the section “Method”.
-In Abstract, the content is not consistent with the content in the main body of the paper. In the abstract, it says “the neural network result advantages over both techniques, with significantly higher correctness rate”; however, in the conclusion or discussion part, it indicates that CasPer and BDR techniques are useful and the neural networks implementing these techniques have better performance.
-In section 1 “Data and Preprocessing”, although the details of input data of the dataset are described, the paper does not mention what the 5 output categories are.
-In section 2 “Method”, more sufficient detailed description of CasPer and BDR techniques are needed, which could facilitate the reproduction of the method. In section 2.2, although it states “hyper parameters in this method are generally following the standard values”, it would be clearer if the paper gives specific descriptions and values of these parameters, or cites relevant references that give the specifications. Also, it briefly mentions the tests of the CasPer network with 12 and 14 hidden neurons, but I am confused about the method of controlling the number of hidden neurons here, because the number of hidden units is determined by the model itself in CasPer networks; therefore, it would be more convincing if the paper could give the details of such tests. In addition, it would be clearer to have a sub-section for a detailed description of the test method (5-folds Cross-Validation), which is mentioned several times sparsely in different sections. 
-In section 3 “Results and Discussion”, the results are clear in the figures and tables and part of the discussion is reasonable and convincing. It would give more evidence if the paper gives the error distribution of the network with BDR when it begins to remove outliers, to see whether the network has identified the outliers or not (is the error distribution near-bimodal?). At the end of the section, the paper says “the neural network described in [2] has lower performance than all of our models”, however, according to the referenced paper, it seems to have a better performance after 800 epochs when the dataset is augmented by adding random noises.
-In section 4 “Conclusion and Future Work”, some points of view in the conclusion are not mentioned in the previous discussion. 
-
-Minor Issues
-•       It would be more formal to use “5-fold cross-validation” than “5 cross validation”.
-•       It would be clearer to label the axes of the figures.
-•       “the neural network described in [2] has lower performance than all of our models” – it would be better to avoid in-text citation like this.
-
-
-
------------------------ REVIEW 3 ---------------------
-SUBMISSION: 53
-TITLE: Classifying Forest Supra-type from Augmented Satellite Data: Comparing Simple Neural Network, Bimodal and CasPer Techniques
-AUTHORS: Jiawen He
-
------------ Overall evaluation -----------
-SCORE: 1 (weak accept)
------ TEXT:
-1.      Summary:
-This paper compares three methods, named two-layer neural network, Casper and bimodal outlier remover with Casper. Author has used GIS dataset and provided detailed explanation of dataset. Author has applied all this technique over same dataset to compare and get the best out of three. To test further author has tested Casper with two different number of neurons but found result to be quite same for both and Casper with bimodal also tested with two different sets. Through the experiment it seems Casper performed better over both vanilla neural network and Casper with bimodal irrespective of number of neurons used. Conclusion provided for such result is quite reasonable. Overall the author concluded as neural network performance to be of lowest of all other.
-
-2.      Major Revision:
-
-a.      Author have provided Data and pre-processing details immediately after abstract. I believe this is where the Introduction starts in this report. Dataset is explained very nicely and clearly but there is no background information on algorithm used for this dataset.
-b.      For simple neural network it is quite unclear what encouraged author to use hidden neuron of 12. If it is based on previous research papers, no such reference is provided.
-c.      The Casper method explanation is quite unclear and not reproducible from the description provided.
-d.      Similar to point 4, not so clear and reproducible explanation of Casper and bimodal technique.
-e.      Results and graph are explained very well and sounds reasonable. Comparison with paper using same technique is done where the other paper has also got almost the same result.
-f.       Author has fairly concluded the report outcome and future to be done. It represents author has well understanding of future requirement and how the performance of same network can be improved with some more future work.
-g.      Overall report is good but not reproducible has author has given very little information on his network creation for all three models.
-
-3.      Minor Revision:
-
-a.      Table has no name and only numbered. At a high-level glance, it is difficult for reader to understand what the table represent without naming table.
-b.      Springer format is not used correctly like spacing between two paragraphs should be zero.
-c.      Referencing style throughout the document seems to be used IEEE format but in References section the format is not followed properly.
-
-4. Reason for weak accept:
-The paper has well explained result but how the network is implemented is unclear and not described in detail. Although the author have good result, without explaining how the model is created, that doesnt make result also strong. If author can clearly explain the network, it would be acceptable.
-
-
 -------------------------- assignment 2 -------------------------------
- either extend using DL approach or an evolutionary algorithms approach
-
+--------- assignment spec -----------
+questions:
+either extend using DL approach or an evolutionary algorithms approach
  EA: adjust the parameters of your neural network or pruning or input processing or all the weights or ...
 
+submission:
+1. report
+2. support documents in a zip file
+    a. source code + data set (original+preprocessed). in one zip folder
+    b. copies of technique and dataset papers
+    c. source documents for report (docx)
+
+task description:
+1. devise a classification (/regression) problem to investigate using the data set selected
+    - what you want to model and explain inputs & outputs
+2. implement in PyTorch/Python to solve the problem and implement a method to determine the performance
+    - can use the same evaluation method of other papers (of same dataset) + cite
+3. implement a technique from literature (for ass1) and determine its benefit or lack of benefit
+4. compare your results with results published in the dataset paper reporting results on the data set you chose
+5. write a report
+
+format:
+1. conform to lecture notes in cs conference paper proceedings format, with margins changed to 2cm and header/footer to 1cm
+2. springer citation style
+3. uid in email
+4. affiliation: research school of computer science, Australian National University, Canberra Australia
+5. include name as single author
+6. suggested structure:
+    a. abstract - a paragraph, summarises the work + results (better/same/worse)
+    b. introduction - motivation for choice of data set + problem + outline of investigation + brif background to the problem + methods used to perform analysis
+    c. method - description of the techniques implemented + details of investigations or tests conducted
+    d. results and discussion - presentation of results + comparison
+    e. conclusion and future work - statement on findings + how the work can be extended or how to improve
+    f. reference - a few more tahn last time
 
 
- feedback from assignment 1
- Should give more detail about results achieved.
- Should justify why neural networks/Casper are being compared.
- What are the aims of the paper?
- Need to say learning rate and activation function used.
- Goals of future work not clear.
- Some sentences are hard to understand.
- Do not talk about how you implemented things in Pytorch.
- Graphs should be labelled or have titles.
- Dataset not provided.
- Missing activation function in Casper.
+-------- inspiration ----------
+abstract:
+This paper conducts experiments on geographical data using neural networks.
+It compares the performances of various network structures with different optimization techniques.
+It demonstrates that Casper networks generalises better than standard predetermined neural networks
+but does not benefit much from bimodal distribution reductions.
+when the dataset is very limited
+
+comparison and discusion:
+https://www.researchgate.net/post/Why_is_back-propagation_still_used_extensively_to_train_ANN_while_it_is_beaten_by_GA
+https://stats.stackexchange.com/questions/55887/backpropagation-vs-genetic-algorithm-for-neural-network-training
+
+-------- feedback from assignment 1 ------------
+abstract section:
+problem, motivation, approaches, contributions
+why they are being compared
+
+introduction section:
+geographical data important -> need reference
+background of techniques in introduction section
+mention the 5 output categories
+pre-processing should belong to methods section
+
+methods section:
+details about CasPer and all hyperparameters
+why hidden neuron 12? reference
+methods chapter should include details about evaluation (and justification)
+cross validation described in separate sub-section
+"5-fold cross-validation" than "5 cross validation"
+dont' talk about how to implement in Pytorch
+
+results section:
+more details about results achieved
+√ NN seems overfitting
+X chapter 3 include average and best
+caption, brief description for tables and figures
+issues should belong to the results and discussion chapter
+avoid in-text citation
+
+conclusion section:
+future work should be possible extensions/ addressing the flaws/ perfecting techniques
+
+Springer format
+
  
 -------------------------- assignment 1 ------------------------------- 
 Your task is to:

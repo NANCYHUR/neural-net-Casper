@@ -18,7 +18,7 @@ output_encoding = [[0.1838, 0.3174, 0.3798, 0.4],
                   [0.5, 0.5, 0.5, 0.9]]
 output_types = ['SC', 'DS', 'WD', 'WS', 'RF']
 
-def pre_process():
+def pre_process(store=False):
     # load all data
     data = pd.read_csv('GIS/gis-data.txt', sep=' ')
     # drop first column as it is identifier
@@ -97,6 +97,9 @@ def pre_process():
     data['unit4'] = data['type'].map(lambda j: output_encoding[int(j)][3])
     # drop 'type' column
     data.drop('type', axis=1, inplace=True)
+
+    if store:
+        data.to_csv(r'GIS/gis-preprocessed.txt', index=None, header=True)
 
     return data
 

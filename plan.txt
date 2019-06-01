@@ -1,3 +1,11 @@
+-------------------------- assignment 2 -------------------------------
+-> modify preprocessing.py to store the preprocessed data
+-> implement GA structure based on lab
+-> integrate GA with dataset and cross validation
+-> run
+
+-------------------------- assignment 1 -------------------------------
+
 -> watch GIS recording
 -> print all papers (GIS and Casper)
 -> read all GIS papers
