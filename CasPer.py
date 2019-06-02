@@ -16,12 +16,12 @@ import torch.nn as nn
 import matplotlib.pyplot as plt
 import math
 
-run_time = 5
+run_time = 1
 plot_each_run = False
 
 # hyper parameters
 DNA_size = 27
-pop_size = 20
+pop_size = 50
 cross_rate = 0.8
 mutation_rate = 0.005
 n_generations = 20
@@ -63,13 +63,15 @@ class Regression(nn.Module):
             self.install = True
         elif self.current_neuron_epoch<15+self.p*self.n_hidden:
             self.install = False
+        elif self.current_neuron_epoch>100:
+            self.install = True
         else:
             loss1 = self.losses[-1]
             loss2 = self.losses[-2]
             rms1 = math.sqrt(loss1)
             rms2 = math.sqrt(loss2)
             decrease = (rms2 - rms1) / rms2
-            self.install = 0 < decrease <= 0.01
+            self.install = 0 < decrease <= 0.03
 
         if self.install:
             if self.n_hidden == self.num_neurons:
@@ -285,7 +287,10 @@ def cross_validation(hyper_parameters):
     print("corresponding training correctness rate:", train_correctness)
     print("corresponding testing loss:", test_loss_best)
     print("corresponding training loss:", train_loss_best)
+    print("settings: ", features_idx, num_neurons, p_value)
+    print("---------------------------------------\n")
 
+    return highest_test_correctness, train_correctness, test_loss_best, train_loss_best
 
 ################################ main ###################################
 if __name__ == "__main__":

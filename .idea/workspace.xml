@@ -4,9 +4,6 @@
     <list default="true" id="c442f2ce-cdad-4d38-a8cf-330ebacc5c40" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/CasPer.py" afterPath="$PROJECT_DIR$/CasPer.py" />
       <change beforePath="$PROJECT_DIR$/GA.py" afterPath="$PROJECT_DIR$/GA.py" />
-      <change beforePath="$PROJECT_DIR$/NN.py" afterPath="$PROJECT_DIR$/NN.py" />
-      <change beforePath="$PROJECT_DIR$/notes.txt" afterPath="$PROJECT_DIR$/notes.txt" />
-      <change beforePath="$PROJECT_DIR$/test.py" afterPath="$PROJECT_DIR$/test.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -34,8 +31,8 @@
           <file leaf-file-name="NN.py" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/NN.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="-1314">
-                  <caret line="60" column="0" lean-forward="true" selection-start-line="60" selection-start-column="0" selection-end-line="60" selection-end-column="0" />
+                <state relative-caret-position="-3076">
+                  <caret line="24" column="21" lean-forward="false" selection-start-line="24" selection-start-column="21" selection-end-line="24" selection-end-column="21" />
                   <folding>
                     <element signature="e#254#309#0" expanded="true" />
                   </folding>
@@ -46,8 +43,8 @@
           <file leaf-file-name="GA.py" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/GA.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="364">
-                  <caret line="45" column="0" lean-forward="true" selection-start-line="45" selection-start-column="0" selection-end-line="45" selection-end-column="0" />
+                <state relative-caret-position="164">
+                  <caret line="32" column="0" lean-forward="false" selection-start-line="32" selection-start-column="0" selection-end-line="32" selection-end-column="0" />
                   <folding>
                     <element signature="e#282#300#0" expanded="true" />
                   </folding>
@@ -94,8 +91,8 @@
           <file leaf-file-name="CasPer.py" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/CasPer.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="206">
-                  <caret line="197" column="4" lean-forward="false" selection-start-line="197" selection-start-column="4" selection-end-line="197" selection-end-column="4" />
+                <state relative-caret-position="212">
+                  <caret line="74" column="24" lean-forward="true" selection-start-line="74" selection-start-column="24" selection-end-line="74" selection-end-column="24" />
                   <folding>
                     <element signature="e#276#313#0" expanded="true" />
                   </folding>
@@ -174,8 +171,8 @@
         <option value="$PROJECT_DIR$/preprocessing.py" />
         <option value="$PROJECT_DIR$/labs1-5/lab8.2_task.py" />
         <option value="$PROJECT_DIR$/notes.txt" />
-        <option value="$PROJECT_DIR$/NN.py" />
         <option value="$PROJECT_DIR$/test.py" />
+        <option value="$PROJECT_DIR$/NN.py" />
         <option value="$PROJECT_DIR$/GA.py" />
         <option value="$PROJECT_DIR$/CasPer.py" />
       </list>
@@ -257,7 +254,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.test">
+  <component name="RunManager" selected="Python.CasPer">
     <configuration name="Bimodal" type="PythonConfigurationType" factoryName="Python">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -433,9 +430,9 @@
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="Python.test" />
-        <item index="1" class="java.lang.String" itemvalue="Python.lab8.2_task" />
-        <item index="2" class="java.lang.String" itemvalue="Python.CasPer" />
+        <item index="0" class="java.lang.String" itemvalue="Python.CasPer" />
+        <item index="1" class="java.lang.String" itemvalue="Python.test" />
+        <item index="2" class="java.lang.String" itemvalue="Python.lab8.2_task" />
         <item index="3" class="java.lang.String" itemvalue="Python.lab3_regression" />
         <item index="4" class="java.lang.String" itemvalue="Python.lab2_task2_glass_dataloader" />
       </list>
@@ -481,7 +478,7 @@
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32969216" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.16583912" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.44587883" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.27507448" sideWeight="0.49815693" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
@@ -877,26 +874,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/GA.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="364">
-          <caret line="45" column="0" lean-forward="true" selection-start-line="45" selection-start-column="0" selection-end-line="45" selection-end-column="0" />
-          <folding>
-            <element signature="e#282#300#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/NN.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1314">
-          <caret line="60" column="0" lean-forward="true" selection-start-line="60" selection-start-column="0" selection-end-line="60" selection-end-column="0" />
-          <folding>
-            <element signature="e#254#309#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/notes.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="315">
@@ -905,10 +882,30 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/GA.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="164">
+          <caret line="32" column="0" lean-forward="false" selection-start-line="32" selection-start-column="0" selection-end-line="32" selection-end-column="0" />
+          <folding>
+            <element signature="e#282#300#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/NN.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-3076">
+          <caret line="24" column="21" lean-forward="false" selection-start-line="24" selection-start-column="21" selection-end-line="24" selection-end-column="21" />
+          <folding>
+            <element signature="e#254#309#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/CasPer.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="206">
-          <caret line="197" column="4" lean-forward="false" selection-start-line="197" selection-start-column="4" selection-end-line="197" selection-end-column="4" />
+        <state relative-caret-position="212">
+          <caret line="74" column="24" lean-forward="true" selection-start-line="74" selection-start-column="24" selection-end-line="74" selection-end-column="24" />
           <folding>
             <element signature="e#276#313#0" expanded="true" />
           </folding>

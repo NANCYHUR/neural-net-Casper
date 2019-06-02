@@ -56,7 +56,7 @@ class GA_model():
             correctness = []
             for p in range(self.pop_size):
                 hyper = [features_pop[p], hidden_size_pop[p], num_epochs_pop[p], learning_rate_pop[p]]
-                print("{}/{}".format(p+1, self.n_generations))
+                print("{}/{}".format(p+1, self.pop_size))
                 print(hyper)
                 highest_test_correctness, train_correctness, test_loss, train_loss = self.train_test(hyper)
                 correctness.append(highest_test_correctness)
@@ -91,8 +91,8 @@ class GA_model():
             learning_rate = (binary_to_decimal(gray_to_binary(learning_rate))+1)/10000
             hyper.extend([hidden_size, num_epochs, learning_rate])
         else:   # if it's CasPer
-            num_neurons = pop[20:24]
-            p_value = pop[24:27]
+            num_neurons = pop[:, 20:24]
+            p_value = pop[:, 24:27]
             num_neurons = binary_to_decimal(gray_to_binary(num_neurons)) + 1
             p_value = binary_to_decimal(gray_to_binary(p_value)) + 1
             hyper.extend([num_neurons, p_value])

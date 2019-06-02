@@ -15,7 +15,7 @@ import torch
 import torch.nn as nn
 import matplotlib.pyplot as plt
 
-run_times = 5
+run_times = 1
 plot_each_run = False
 
 # GA settings
