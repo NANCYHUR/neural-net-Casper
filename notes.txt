@@ -1,4 +1,13 @@
 -------------------------- assignment 2 -------------------------------
+feature selection: 24 -> 24 DNA bit
+hyper parameters for NN: hidden_size [1,64] -> 6, (remember to +1 when translating DNA)
+                    num_epochs [10,521] -> 8, (remember to +10 when translating DNA)
+                    learning_rate [0.0001,0.1024] -> 10, (remember to +1 then /1000)
+        NN: 24 + 6 + 8 + 10 = 48 in total
+hyper parameters for CasPer: num_neurons [1,16] -> 4, (remember to +1 when translating DNA)
+                                p_value [1,8] -> 3, (remember to +1 when translating DNA)
+        CasPer: 24 + 4 + 3 = 31 in total
+
 --------- assignment spec -----------
 questions:
 either extend using DL approach or an evolutionary algorithms approach
@@ -33,7 +42,6 @@ format:
     d. results and discussion - presentation of results + comparison
     e. conclusion and future work - statement on findings + how the work can be extended or how to improve
     f. reference - a few more tahn last time
-
 
 -------- inspiration ----------
 abstract:

@@ -8,6 +8,8 @@ a regression problem by equilateral coding, to avoid difficult learning.
 
 from preprocessing import pre_process
 from NN import confusion_matrix, train_data, test_data
+from GA import GA_model
+
 import numpy as np
 import torch
 import torch.nn as nn
@@ -18,14 +20,18 @@ run_time = 20
 plot_each_run = False
 
 # hyper parameters
+DNA_size = 48
+pop_size = 20
+cross_rate = 0.8
+n_generations = 50
+
+# fixed hyper parameters for CasPer
 input_size = 20
 output_size = 4
-num_neurons = 14
 learning_rate_1 = 0.2
 learning_rate_2 = 0.005
 learning_rate_3 = 0.001
 k_cross_validation = 5
-p_value = 4
 
 # define loss function
 loss_func = nn.MSELoss()
@@ -40,8 +46,8 @@ class Regression(nn.Module):
         self.n_hidden = 0
         self.losses = all_losses
         self.num_neurons = num_neurons
+        self.p = p_value    # used to determine whether to install a new neuron
         self.input_to_output = nn.Linear(input_size, output_size)
-        self.p = p_value
         # all_to_output: a list containing all Linears from all neurons to output neurons
         self.all_to_output = []
         # all_to_hidden: a list containing all Linears from previous neurons to a hidden neuron
@@ -121,12 +127,12 @@ class Regression(nn.Module):
 
 
 # train the model, given X and Y
-def train(X, Y, plot=False, to_print=False):
+def train(X, Y, num_neurons, plot=False, to_print=False):
     # store all losses for visualisation
     all_losses = []
 
     # define regression model
-    reg_model = Regression(input_size, output_size, all_losses, num_neurons, p_value)
+    reg_model = Regression(input_size, output_size, all_losses, num_neurons)
 
     # start training
     while True:
@@ -190,6 +196,9 @@ def test(X_test, Y_test, reg_model, to_print=False):
 
 
 ################################ main ###################################
+# initialize a genetic algorithm model
+ga = GA_model(DNA_size, pop_size, cross_rate, n_generations)
+
 highest_test_correctness = 0
 train_correctness = 0
 test_loss_best = 0

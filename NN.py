@@ -7,6 +7,8 @@ a regression problem by equilateral coding, to avoid difficult learning.
 """
 
 from preprocessing import pre_process, interpret_output
+from GA import GA_model
+
 import numpy as np
 import pandas as pd
 import torch
@@ -16,12 +18,15 @@ import matplotlib.pyplot as plt
 run_times = 20
 plot_each_run = False
 
-# hyper parameters
+# GA settings
+DNA_size = 48
+pop_size = 20
+cross_rate = 0.8
+n_generations = 50
+
+# fixed hyper parameters of NN
 input_size = 20
-hidden_size = 12
 output_size = 4
-num_epochs = 300
-learning_rate = 0.01
 k_cross_validation = 5
 
 # define loss function
@@ -56,7 +61,7 @@ def test_data(splitted_dt, i):
 
 # define regression model
 class Regression(nn.Module):
-    def __init__(self, input_size, output_size):
+    def __init__(self, input_size, hidden_size, output_size):
         super(Regression, self).__init__()
         self.linear1 = nn.Linear(input_size, hidden_size)
         self.linear2 = nn.Linear(hidden_size, output_size)
@@ -68,7 +73,7 @@ class Regression(nn.Module):
 
 
 # train the model, given X and Y
-def train(X, Y, plot=True, to_print=False):
+def train(X, Y, num_epochs, learning_rate, plot=True, to_print=False):
     # define regression model
     reg_model = Regression(input_size, output_size)
     # define optimiser
@@ -148,6 +153,9 @@ def confusion_matrix(Y, Y_predicted):
 
 ################################ main ###################################
 if __name__ == "__main__":
+    # initialize a genetic algorithm model
+    ga = GA_model(DNA_size, pop_size, cross_rate, n_generations)
+
     highest_test_correctness = 0
     train_correctness = 0
     test_loss_best = 0

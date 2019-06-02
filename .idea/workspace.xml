@@ -2,20 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c442f2ce-cdad-4d38-a8cf-330ebacc5c40" name="Default" comment="">
-      <change beforePath="" afterPath="$PROJECT_DIR$/submission/v1/u6227591-GIS-Casper.pdf" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/test.py" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/2019-Neural_Networks_Assignment_1.pdf" afterPath="$PROJECT_DIR$/submission/v1/2019-Neural_Networks_Assignment_1.pdf" />
-      <change beforePath="$PROJECT_DIR$/BiModal.py" afterPath="$PROJECT_DIR$/BiModal.py" />
       <change beforePath="$PROJECT_DIR$/CasPer.py" afterPath="$PROJECT_DIR$/CasPer.py" />
-      <change beforePath="$PROJECT_DIR$/CasPerBimodal.py" afterPath="$PROJECT_DIR$/CasPerBimodal.py" />
+      <change beforePath="$PROJECT_DIR$/GA.py" afterPath="$PROJECT_DIR$/GA.py" />
       <change beforePath="$PROJECT_DIR$/NN.py" afterPath="$PROJECT_DIR$/NN.py" />
       <change beforePath="$PROJECT_DIR$/notes.txt" afterPath="$PROJECT_DIR$/notes.txt" />
-      <change beforePath="$PROJECT_DIR$/plan.txt" afterPath="$PROJECT_DIR$/plan.txt" />
-      <change beforePath="$PROJECT_DIR$/preprocessing.py" afterPath="$PROJECT_DIR$/preprocessing.py" />
-      <change beforePath="$PROJECT_DIR$/report.docx" afterPath="$PROJECT_DIR$/submission/v1/report.docx" />
-      <change beforePath="$PROJECT_DIR$/task4-comparison.py" afterPath="$PROJECT_DIR$/GA.py" />
-      <change beforePath="$PROJECT_DIR$/u6227591-GIS-Casper.zip" afterPath="$PROJECT_DIR$/submission/v1/u6227591-GIS-Casper.zip" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -31,11 +21,33 @@
           <file leaf-file-name="preprocessing.py" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/preprocessing.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="608">
-                  <caret line="100" column="68" lean-forward="false" selection-start-line="100" selection-start-column="68" selection-end-line="100" selection-end-column="68" />
+                <state relative-caret-position="300">
+                  <caret line="20" column="27" lean-forward="false" selection-start-line="20" selection-start-column="27" selection-end-line="20" selection-end-column="27" />
                   <folding>
                     <element signature="e#28#47#0" expanded="true" />
                   </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="NN.py" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/NN.py">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="269">
+                  <caret line="24" column="18" lean-forward="false" selection-start-line="24" selection-start-column="18" selection-end-line="24" selection-end-column="18" />
+                  <folding>
+                    <element signature="e#254#309#0" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="notes.txt" pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/notes.txt">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="105">
+                  <caret line="7" column="0" lean-forward="false" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
+                  <folding />
                 </state>
               </provider>
             </entry>
@@ -50,36 +62,14 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="NN.py" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/NN.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="112">
-                  <caret line="193" column="15" lean-forward="false" selection-start-line="193" selection-start-column="15" selection-end-line="193" selection-end-column="15" />
-                  <folding>
-                    <element signature="e#254#309#0" expanded="true" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="CasPer.py" pinned="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/CasPer.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="105">
-                  <caret line="7" column="0" lean-forward="true" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
-                  <folding>
-                    <element signature="e#276#313#0" expanded="true" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
           <file leaf-file-name="GA.py" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/GA.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="0">
-                  <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-                  <folding />
+                <state relative-caret-position="118">
+                  <caret line="12" column="70" lean-forward="true" selection-start-line="12" selection-start-column="70" selection-end-line="12" selection-end-column="70" />
+                  <folding>
+                    <element signature="e#282#300#0" expanded="true" />
+                  </folding>
                 </state>
               </provider>
             </entry>
@@ -94,26 +84,30 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="notes.txt" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/notes.txt">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="0">
-                  <caret line="0" column="71" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="71" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
         </leaf>
       </split-first>
       <split-second>
         <leaf>
-          <file leaf-file-name="lab8.2_task.py" pinned="false" current-in-tab="true">
+          <file leaf-file-name="lab8.2_task.py" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/labs1-5/lab8.2_task.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="0">
-                  <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-                  <folding />
+                <state relative-caret-position="201">
+                  <caret line="49" column="0" lean-forward="true" selection-start-line="49" selection-start-column="0" selection-end-line="49" selection-end-column="0" />
+                  <folding>
+                    <element signature="e#101#119#0" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="CasPer.py" pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/CasPer.py">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="399">
+                  <caret line="48" column="79" lean-forward="false" selection-start-line="48" selection-start-column="79" selection-end-line="48" selection-end-column="79" />
+                  <folding>
+                    <element signature="e#276#313#0" expanded="true" />
+                  </folding>
                 </state>
               </provider>
             </entry>
@@ -145,17 +139,19 @@
         <option value="$PROJECT_DIR$/labs1-5/lab3-20190426/lab3_regression.py" />
         <option value="$PROJECT_DIR$/task2-NN.py" />
         <option value="$PROJECT_DIR$/task3-CasPer.py" />
-        <option value="$PROJECT_DIR$/preprocessing.py" />
         <option value="$PROJECT_DIR$/BiModal.py" />
         <option value="$PROJECT_DIR$/Cascor.py" />
         <option value="$PROJECT_DIR$/CasPerBimodal.py" />
         <option value="$PROJECT_DIR$/README.md" />
-        <option value="$PROJECT_DIR$/notes.txt" />
         <option value="$PROJECT_DIR$/plan.txt" />
         <option value="$PROJECT_DIR$/code/preprocessing.py" />
         <option value="$PROJECT_DIR$/test.py" />
         <option value="$PROJECT_DIR$/code/NN.py" />
+        <option value="$PROJECT_DIR$/preprocessing.py" />
+        <option value="$PROJECT_DIR$/labs1-5/lab8.2_task.py" />
+        <option value="$PROJECT_DIR$/GA.py" />
         <option value="$PROJECT_DIR$/NN.py" />
+        <option value="$PROJECT_DIR$/notes.txt" />
         <option value="$PROJECT_DIR$/CasPer.py" />
       </list>
     </option>
@@ -201,6 +197,11 @@
               <item name="comp4660-assignment1" type="b2602c69:ProjectViewProjectNode" />
               <item name="comp4660-assignment1" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="comp4660-assignment1" type="b2602c69:ProjectViewProjectNode" />
+              <item name="comp4660-assignment1" type="462c0819:PsiDirectoryNode" />
+              <item name="GIS" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
@@ -231,7 +232,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.NN">
+  <component name="RunManager" selected="Python.lab8.2_task">
     <configuration name="Bimodal" type="PythonConfigurationType" factoryName="Python">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -358,19 +359,19 @@
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
     </configuration>
-    <configuration name="pre-processing" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration name="lab8.2_task" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
-      <option name="SDK_HOME" value="$USER_HOME$/anaconda3/bin/python" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="false" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/labs1-5" />
+      <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <module name="comp4660-assignment1" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/preprocessing.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/labs1-5/lab8.2_task.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -399,19 +400,19 @@
       <item index="1" class="java.lang.String" itemvalue="Python.NN" />
       <item index="2" class="java.lang.String" itemvalue="Python.lab1.2_task1" />
       <item index="3" class="java.lang.String" itemvalue="Python.Casper-Bimodal" />
-      <item index="4" class="java.lang.String" itemvalue="Python.pre-processing" />
-      <item index="5" class="java.lang.String" itemvalue="Python.lab3_regression" />
-      <item index="6" class="java.lang.String" itemvalue="Python.lab2_task2_glass_dataloader" />
-      <item index="7" class="java.lang.String" itemvalue="Python.CasPer" />
-      <item index="8" class="java.lang.String" itemvalue="Python.test" />
+      <item index="4" class="java.lang.String" itemvalue="Python.lab3_regression" />
+      <item index="5" class="java.lang.String" itemvalue="Python.lab2_task2_glass_dataloader" />
+      <item index="6" class="java.lang.String" itemvalue="Python.CasPer" />
+      <item index="7" class="java.lang.String" itemvalue="Python.test" />
+      <item index="8" class="java.lang.String" itemvalue="Python.lab8.2_task" />
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="Python.test" />
+        <item index="0" class="java.lang.String" itemvalue="Python.lab8.2_task" />
         <item index="1" class="java.lang.String" itemvalue="Python.CasPer" />
-        <item index="2" class="java.lang.String" itemvalue="Python.lab3_regression" />
-        <item index="3" class="java.lang.String" itemvalue="Python.lab2_task2_glass_dataloader" />
-        <item index="4" class="java.lang.String" itemvalue="Python.pre-processing" />
+        <item index="2" class="java.lang.String" itemvalue="Python.test" />
+        <item index="3" class="java.lang.String" itemvalue="Python.lab3_regression" />
+        <item index="4" class="java.lang.String" itemvalue="Python.lab2_task2_glass_dataloader" />
       </list>
     </recent_temporary>
   </component>
@@ -455,7 +456,7 @@
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32969216" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3286991" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3286991" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.27507448" sideWeight="0.49815693" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
@@ -472,20 +473,12 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="XDebuggerManager">
-    <breakpoint-manager />
+    <breakpoint-manager>
+      <option name="time" value="1" />
+    </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/preprocessing.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1560">
-          <caret line="105" column="36" lean-forward="false" selection-start-line="105" selection-start-column="36" selection-end-line="105" selection-end-column="36" />
-          <folding>
-            <element signature="e#28#47#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$USER_HOME$/anaconda3/lib/python3.7/site-packages/torch/nn/modules/loss.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="7425">
@@ -686,6 +679,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="466">
           <caret line="3363" column="0" lean-forward="false" selection-start-line="3363" selection-start-column="0" selection-end-line="3363" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -725,14 +719,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Cascor.py" />
-    <entry file="file://$PROJECT_DIR$/labs1-5/lab8.2_task.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/labs1-5/ga_tsp+answer.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="207">
@@ -777,30 +763,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/notes.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="71" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="71" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/GA.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/plan.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="45">
-          <caret line="3" column="49" lean-forward="false" selection-start-line="3" selection-start-column="49" selection-end-line="3" selection-end-column="49" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$USER_HOME$/anaconda3/lib/python3.7/site-packages/pandas/io/parsers.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="279">
@@ -841,6 +803,32 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/preprocessing.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="300">
+          <caret line="20" column="27" lean-forward="false" selection-start-line="20" selection-start-column="27" selection-end-line="20" selection-end-column="27" />
+          <folding>
+            <element signature="e#28#47#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/plan.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="45">
+          <caret line="3" column="49" lean-forward="false" selection-start-line="3" selection-start-column="49" selection-end-line="3" selection-end-column="49" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/GIS/gis-preprocessed.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="80" lean-forward="true" selection-start-line="0" selection-start-column="80" selection-end-line="0" selection-end-column="80" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/test.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="120">
@@ -849,30 +837,48 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/preprocessing.py">
+    <entry file="file://$PROJECT_DIR$/labs1-5/lab8.2_task.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="608">
-          <caret line="100" column="68" lean-forward="false" selection-start-line="100" selection-start-column="68" selection-end-line="100" selection-end-column="68" />
+        <state relative-caret-position="201">
+          <caret line="49" column="0" lean-forward="true" selection-start-line="49" selection-start-column="0" selection-end-line="49" selection-end-column="0" />
           <folding>
-            <element signature="e#28#47#0" expanded="true" />
+            <element signature="e#101#119#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/NN.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="112">
-          <caret line="193" column="15" lean-forward="false" selection-start-line="193" selection-start-column="15" selection-end-line="193" selection-end-column="15" />
+        <state relative-caret-position="269">
+          <caret line="24" column="18" lean-forward="false" selection-start-line="24" selection-start-column="18" selection-end-line="24" selection-end-column="18" />
           <folding>
             <element signature="e#254#309#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/CasPer.py">
+    <entry file="file://$PROJECT_DIR$/GA.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="118">
+          <caret line="12" column="70" lean-forward="true" selection-start-line="12" selection-start-column="70" selection-end-line="12" selection-end-column="70" />
+          <folding>
+            <element signature="e#282#300#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/notes.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="105">
-          <caret line="7" column="0" lean-forward="true" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
+          <caret line="7" column="0" lean-forward="false" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CasPer.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="399">
+          <caret line="48" column="79" lean-forward="false" selection-start-line="48" selection-start-column="79" selection-end-line="48" selection-end-column="79" />
           <folding>
             <element signature="e#276#313#0" expanded="true" />
           </folding>
