@@ -1,11 +1,8 @@
-from pandas import DataFrame
+import matplotlib.pyplot as plt
 
-Cars = {'Brand': ['Honda Civic','Toyota Corolla','Ford Focus','Audi A4'],
-        'Price': [22000,25000,27000,35000]
-        }
-
-df = DataFrame(Cars, columns= ['Brand', 'Price'])
-
-export_csv = df.to_csv (r'GIS/export_dataframe.txt', index = None, header=True) #Don't forget to add '.csv' at the end of the path
-print(export_csv)
-print (df)
+line = plt.plot([1,2,3,4,5,6,7], [1,4,9,6,13,14,6])
+plt.setp(line, color='g', linewidth=2.0)
+plt.xlabel('number of generation')
+plt.ylabel('best accuracy rate among population (%)')
+plt.title('best DNA performance over time')
+plt.show()

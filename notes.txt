@@ -1,12 +1,16 @@
 -------------------------- assignment 2 -------------------------------
-feature selection: 24 -> 24 DNA bit
+feature selection: 20 -> 20 DNA bit
 hyper parameters for NN: hidden_size [1,64] -> 6, (remember to +1 when translating DNA)
                     num_epochs [10,521] -> 8, (remember to +10 when translating DNA)
                     learning_rate [0.0001,0.1024] -> 10, (remember to +1 then /1000)
-        NN: 24 + 6 + 8 + 10 = 48 in total
+        NN: 20 + 6 + 8 + 10 = 44 in total
 hyper parameters for CasPer: num_neurons [1,16] -> 4, (remember to +1 when translating DNA)
                                 p_value [1,8] -> 3, (remember to +1 when translating DNA)
-        CasPer: 24 + 4 + 3 = 31 in total
+        CasPer: 20 + 4 + 3 = 27 in total
+
+96%
+[array([[1, 0, 1, 0, 0, 1, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1]]), array([46]), array([262]), array([0.0146])]
+
 
 --------- assignment spec -----------
 questions:

@@ -15,17 +15,17 @@ import torch
 import torch.nn as nn
 import matplotlib.pyplot as plt
 
-run_times = 20
+run_times = 5
 plot_each_run = False
 
 # GA settings
-DNA_size = 48
-pop_size = 20
+DNA_size = 44
+pop_size = 50
 cross_rate = 0.8
-n_generations = 50
+mutation_rate = 0.005
+n_generations = 20
 
 # fixed hyper parameters of NN
-input_size = 20
 output_size = 4
 k_cross_validation = 5
 
@@ -38,8 +38,8 @@ def train_data(splitted_dt, i):
     # extract train data
     train_dt = pd.concat([x for j,x in enumerate(splitted_dt) if j!=i])
     # divide into input and target
-    train_input = train_dt.iloc[:, :input_size]
-    train_target = train_dt.iloc[:, input_size:]
+    train_input = train_dt.iloc[:, :-output_size]
+    train_target = train_dt.iloc[:, -output_size:]
     # create Tensors to hold inputs and outputs
     X = torch.Tensor(train_input.values)
     Y = torch.Tensor(train_target.values)
@@ -51,8 +51,8 @@ def test_data(splitted_dt, i):
     # extract test data
     test_dt = splitted_dt[i]
     # divide into input and target
-    test_input = test_dt.iloc[:, :input_size]
-    test_target = test_dt.iloc[:, input_size:]
+    test_input = test_dt.iloc[:, :-output_size]
+    test_target = test_dt.iloc[:, -output_size:]
     # create Tensors to hold inputs and outputs
     X = torch.Tensor(test_input.values)
     Y = torch.Tensor(test_target.values)
@@ -73,9 +73,9 @@ class Regression(nn.Module):
 
 
 # train the model, given X and Y
-def train(X, Y, num_epochs, learning_rate, plot=True, to_print=False):
+def train(X, Y, hidden_size, num_epochs, learning_rate, plot=True, to_print=False):
     # define regression model
-    reg_model = Regression(input_size, output_size)
+    reg_model = Regression(X.size(1), hidden_size, output_size)
     # define optimiser
     optimizer = torch.optim.Adam(reg_model.parameters(), lr=learning_rate)
     # store all losses for visualisation
@@ -151,18 +151,28 @@ def confusion_matrix(Y, Y_predicted):
     return confusion, correct_num
 
 
-################################ main ###################################
-if __name__ == "__main__":
-    # initialize a genetic algorithm model
-    ga = GA_model(DNA_size, pop_size, cross_rate, n_generations)
+def cross_validation(hyper_parameters):
+    # extract hyper parameters of the neural net
+    features = hyper_parameters[0]
+    hidden_size = hyper_parameters[1]
+    num_epochs = hyper_parameters[2]
+    learning_rate = hyper_parameters[3]
 
+    # keep record of highest correctness rate and corresponding other evaluations
     highest_test_correctness = 0
     train_correctness = 0
     test_loss_best = 0
     train_loss_best = 0
+
+    # start training and testing
     for t in range(run_times):
         # pre-process the data, using the function defined in preprocessing.py
         data = pre_process()
+
+        # keep only chosen features
+        columns = np.append(features, [1]*output_size)
+        features_idx = [i for i, x in enumerate(columns) if x == 1]
+        data = data.iloc[:, features_idx]
 
         # split data for later use (k cross validation)
         splitted_data = np.split(data, k_cross_validation)
@@ -178,7 +188,7 @@ if __name__ == "__main__":
             X_test, Y_test = test_data(splitted_data, i)
 
             # train the model and print loss, confusion matrix and correctness
-            reg_model, loss, correctness = train(X_train, Y_train, plot=False)
+            reg_model, loss, correctness = train(X_train, Y_train, hidden_size, num_epochs, learning_rate, plot=False)
 
             # test the model on test data
             test_loss, test_correctness = test(X_test, Y_test, reg_model)
@@ -229,7 +239,19 @@ if __name__ == "__main__":
             plt.title('correctness of model on training and testing data')
             plt.show()
 
-    print("highest test correctness rate over 100 runs:", highest_test_correctness)
+    print("highest test correctness rate over {} runs: {}".format(run_times, highest_test_correctness))
     print("corresponding training correctness rate:", train_correctness)
     print("corresponding testing loss:", test_loss_best)
     print("corresponding training loss:", train_loss_best)
+    print("settings: ", features_idx, hidden_size, num_epochs, learning_rate)
+    print("---------------------------------------\n")
+
+    return highest_test_correctness, train_correctness, test_loss_best, train_loss_best
+
+################################ main ###################################
+if __name__ == "__main__":
+    # initialize a genetic algorithm model
+    ga = GA_model(DNA_size, pop_size, cross_rate, mutation_rate, n_generations, cross_validation)
+
+    # start training the genetic algorithm model
+    ga.train(plot=True)

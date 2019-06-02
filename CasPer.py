@@ -16,17 +16,17 @@ import torch.nn as nn
 import matplotlib.pyplot as plt
 import math
 
-run_time = 20
+run_time = 5
 plot_each_run = False
 
 # hyper parameters
-DNA_size = 48
+DNA_size = 27
 pop_size = 20
 cross_rate = 0.8
-n_generations = 50
+mutation_rate = 0.005
+n_generations = 20
 
 # fixed hyper parameters for CasPer
-input_size = 20
 output_size = 4
 learning_rate_1 = 0.2
 learning_rate_2 = 0.005
@@ -127,12 +127,12 @@ class Regression(nn.Module):
 
 
 # train the model, given X and Y
-def train(X, Y, num_neurons, plot=False, to_print=False):
+def train(X, Y, num_neurons, p_value, plot=False, to_print=False):
     # store all losses for visualisation
     all_losses = []
 
     # define regression model
-    reg_model = Regression(input_size, output_size, all_losses, num_neurons)
+    reg_model = Regression(X.size(1), output_size, all_losses, num_neurons, p_value)
 
     # start training
     while True:
@@ -194,85 +194,103 @@ def test(X_test, Y_test, reg_model, to_print=False):
         print('Correct percentage in testing data:', correctness)
     return test_loss, correctness
 
+def cross_validation(hyper_parameters):
+    # extract hyper parameters of the neural net
+    features = hyper_parameters[0]
+    num_neurons = hyper_parameters[1]
+    p_value = hyper_parameters[2]
+
+    # keep record of highest correctness rate and corresponding other evaluations
+    highest_test_correctness = 0
+    train_correctness = 0
+    test_loss_best = 0
+    train_loss_best = 0
+
+    # start training and testing
+    for t in range(run_time):
+        # pre-process the data, using the function defined in preprocessing.py
+        data = pre_process()
+
+        # keep only chosen features
+        columns = np.append(features, [1]*output_size)
+        features_idx = [i for i, x in enumerate(columns) if x == 1]
+        data = data.iloc[:, features_idx]
+
+        # split data for later use (k cross validation)
+        splitted_data = np.split(data, k_cross_validation)
+
+        # train using cross validation
+        all_train_losses = []
+        all_test_losses = []
+        all_train_correctness = []
+        all_test_correctness = []
+        for i in range(k_cross_validation):
+            # extract train and test data, split input and target
+            X_train, Y_train = train_data(splitted_data, i)
+            X_test, Y_test = test_data(splitted_data, i)
+
+            # train the model and print loss, confusion matrix and correctness
+            reg_model, loss, correctness = train(X_train, Y_train, num_neurons, p_value)
+
+            # test the model on test data
+            test_loss, test_correctness = test(X_test, Y_test, reg_model)
+
+            # append losses and correctness
+            all_train_losses.append(loss)
+            all_test_losses.append(test_loss)
+            all_train_correctness.append(correctness)
+            all_test_correctness.append(test_correctness)
+
+        # print average loss and correctness on training and testing data
+        print("run number {}".format(str(t)))
+        train_loss_avg = (sum(all_train_losses) / len(all_train_losses)).item()
+        test_loss_avg = (sum(all_test_losses) / len(all_test_losses)).item()
+        print('average loss on training data', train_loss_avg)
+        print('average loss on testing data', test_loss_avg)
+        train_correctness_avg = sum(all_train_correctness) / len(all_train_correctness)
+        test_correctness_avg = sum(all_test_correctness) / len(all_test_correctness)
+        print('average correctness on training data', train_correctness_avg)
+        print('average correctness on testing data', test_correctness_avg)
+        print('')
+
+        # update highest
+        if test_correctness_avg > highest_test_correctness:
+            highest_test_correctness = test_correctness_avg
+            train_correctness = train_correctness_avg
+            test_loss_best = test_loss_avg
+            train_loss_best = train_loss_avg
+
+        # display performance of each model
+        if plot_each_run:
+            # losses
+            plt.figure()
+            plt.plot(all_train_losses, label='training data', color='blue')
+            plt.plot(all_test_losses, label='testing data', color='red')
+            plt.axhline(y=train_loss_avg, linestyle=':', label='training data average loss', color='blue')
+            plt.axhline(y=test_loss_avg, linestyle=':', label='testing data average loss', color='red')
+            plt.legend()
+            plt.title('losses of model on training and testing data')
+            plt.show()
+            # correctness
+            plt.figure()
+            plt.plot(all_train_correctness, label='training data', color='blue')
+            plt.plot(all_test_correctness, label='testing data', color='red')
+            plt.axhline(y=train_correctness_avg, linestyle=':', label='training data average correctness', color='blue')
+            plt.axhline(y=test_correctness_avg, linestyle=':', label='testing data average correctness', color='red')
+            plt.legend()
+            plt.title('correctness of model on training and testing data')
+            plt.show()
+
+    print("highest test correctness rate over 100 runs:", highest_test_correctness)
+    print("corresponding training correctness rate:", train_correctness)
+    print("corresponding testing loss:", test_loss_best)
+    print("corresponding training loss:", train_loss_best)
+
 
 ################################ main ###################################
-# initialize a genetic algorithm model
-ga = GA_model(DNA_size, pop_size, cross_rate, n_generations)
+if __name__ == "__main__":
+    # initialize a genetic algorithm model
+    ga = GA_model(DNA_size, pop_size, cross_rate, mutation_rate, n_generations, cross_validation)
 
-highest_test_correctness = 0
-train_correctness = 0
-test_loss_best = 0
-train_loss_best = 0
-for t in range(run_time):
-    # pre-process the data, using the function defined in preprocessing.py
-    data = pre_process()
-
-    # split data for later use (k cross validation)
-    splitted_data = np.split(data, k_cross_validation)
-
-    # train using cross validation
-    all_train_losses = []
-    all_test_losses = []
-    all_train_correctness = []
-    all_test_correctness = []
-    for i in range(k_cross_validation):
-        # extract train and test data, split input and target
-        X_train, Y_train = train_data(splitted_data, i)
-        X_test, Y_test = test_data(splitted_data, i)
-
-        # train the model and print loss, confusion matrix and correctness
-        reg_model, loss, correctness = train(X_train, Y_train)
-
-        # test the model on test data
-        test_loss, test_correctness = test(X_test, Y_test, reg_model)
-
-        # append losses and correctness
-        all_train_losses.append(loss)
-        all_test_losses.append(test_loss)
-        all_train_correctness.append(correctness)
-        all_test_correctness.append(test_correctness)
-
-    # print average loss and correctness on training and testing data
-    print("run number {}".format(str(t)))
-    train_loss_avg = (sum(all_train_losses) / len(all_train_losses)).item()
-    test_loss_avg = (sum(all_test_losses) / len(all_test_losses)).item()
-    print('average loss on training data', train_loss_avg)
-    print('average loss on testing data', test_loss_avg)
-    train_correctness_avg = sum(all_train_correctness) / len(all_train_correctness)
-    test_correctness_avg = sum(all_test_correctness) / len(all_test_correctness)
-    print('average correctness on training data', train_correctness_avg)
-    print('average correctness on testing data', test_correctness_avg)
-    print('')
-
-    # update highest
-    if test_correctness_avg > highest_test_correctness:
-        highest_test_correctness = test_correctness_avg
-        train_correctness = train_correctness_avg
-        test_loss_best = test_loss_avg
-        train_loss_best = train_loss_avg
-
-    # display performance of each model
-    if plot_each_run:
-        # losses
-        plt.figure()
-        plt.plot(all_train_losses, label='training data', color='blue')
-        plt.plot(all_test_losses, label='testing data', color='red')
-        plt.axhline(y=train_loss_avg, linestyle=':', label='training data average loss', color='blue')
-        plt.axhline(y=test_loss_avg, linestyle=':', label='testing data average loss', color='red')
-        plt.legend()
-        plt.title('losses of model on training and testing data')
-        plt.show()
-        # correctness
-        plt.figure()
-        plt.plot(all_train_correctness, label='training data', color='blue')
-        plt.plot(all_test_correctness, label='testing data', color='red')
-        plt.axhline(y=train_correctness_avg, linestyle=':', label='training data average correctness', color='blue')
-        plt.axhline(y=test_correctness_avg, linestyle=':', label='testing data average correctness', color='red')
-        plt.legend()
-        plt.title('correctness of model on training and testing data')
-        plt.show()
-
-print("highest test correctness rate over 100 runs:", highest_test_correctness)
-print("corresponding training correctness rate:", train_correctness)
-print("corresponding testing loss:", test_loss_best)
-print("corresponding training loss:", train_loss_best)
+    # start trainign the genetic algorithm model
+    ga.train(plot=True)
