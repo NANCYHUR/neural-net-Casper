@@ -11,6 +11,19 @@ hyper parameters for CasPer: num_neurons [1,16] -> 4, (remember to +1 when trans
                                 learning_rate_3 [0.0001, 0.1024] -> 10 (+1 then /10000)
         CasPer: 20 + 4 + 3 + 3 + 2 + 10 = 42 in total
 
+good:
+1. jump out of local maxima, can generally ensure that it's optimal
+2. improve gradually
+
+bad:
+1. large complexity, not really feasible in larger case
+2. small range, already get a good result in first run
+
+future work:
+1. better splitting algorithm to ensure distribution
+2. more efficient technique to obtain optimal hyper parameters and feature selection
+3. investigate into when Casper is better than neural network
+
 
 --------- assignment spec -----------
 questions:
@@ -34,15 +47,15 @@ task description:
 5. write a report
 
 format:
-1. conform to lecture notes in cs conference paper proceedings format, with margins changed to 2cm and header/footer to 1cm
-2. springer citation style
-3. uid in email
-4. affiliation: research school of computer science, Australian National University, Canberra Australia
-5. include name as single author
+√ conform to lecture notes in cs conference paper proceedings format, with margins changed to 2cm and header/footer to 1cm
+√ springer citation style
+√ uid in email
+√ affiliation: research school of computer science, Australian National University, Canberra Australia
+√ include name as single author
 6. suggested structure:
-    a. abstract - a paragraph, summarises the work + results (better/same/worse)
-    b. introduction - motivation for choice of data set + problem + outline of investigation + brif background to the problem + methods used to perform analysis
-    c. method - description of the techniques implemented + details of investigations or tests conducted
+    √ abstract - a paragraph, summarises the work + results (better/same/worse)
+    √ introduction - motivation for choice of data set + problem + outline of investigation + brif background to the problem + methods used to perform analysis
+    √ method - description of the techniques implemented + details of investigations or tests conducted
     d. results and discussion - presentation of results + comparison
     e. conclusion and future work - statement on findings + how the work can be extended or how to improve
     f. reference - a few more tahn last time
@@ -61,35 +74,35 @@ https://stats.stackexchange.com/questions/55887/backpropagation-vs-genetic-algor
 
 -------- feedback from assignment 1 ------------
 abstract section:
-problem, motivation, approaches, contributions
-why they are being compared
+√ problem, motivation, approaches, contributions
+√ why they are being compared
 
 introduction section:
-geographical data important -> need reference
-background of techniques in introduction section
-mention the 5 output categories
-pre-processing should belong to methods section
+X geographical data important -> need reference
+√ background of techniques in introduction section
+√ mention the 5 output categories
+√ pre-processing should belong to methods section
 
 methods section:
 details about CasPer and all hyperparameters
-why hidden neuron 12? reference
-methods chapter should include details about evaluation (and justification)
-cross validation described in separate sub-section
-"5-fold cross-validation" than "5 cross validation"
-dont' talk about how to implement in Pytorch
+X why hidden neuron 12? reference
+√ methods chapter should include details about evaluation (and justification)
+√ cross validation described in separate sub-section
+√ "5-fold cross-validation" than "5 cross validation"
+√ dont' talk about how to implement in Pytorch
 
 results section:
 more details about results achieved
 √ NN seems overfitting
 X chapter 3 include average and best
-caption, brief description for tables and figures
+√ caption, brief description for tables and figures
 issues should belong to the results and discussion chapter
-avoid in-text citation
+√ avoid in-text citation
 
 conclusion section:
 future work should be possible extensions/ addressing the flaws/ perfecting techniques
 
-Springer format
+√ Springer format
 
  
 -------------------------- assignment 1 ------------------------------- 

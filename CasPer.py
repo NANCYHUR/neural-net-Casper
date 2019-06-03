@@ -22,7 +22,7 @@ plot_each_run = False
 DNA_size = 42
 pop_size = 10
 cross_rate = 0.8
-mutation_rate = 0.002
+mutation_rate = 0.001
 n_generations = 20
 
 # fixed hyper parameters for CasPer
@@ -71,7 +71,7 @@ class Regression(nn.Module):
             rms1 = math.sqrt(loss1)
             rms2 = math.sqrt(loss2)
             decrease = (rms2 - rms1) / rms2
-            self.install = 0 < decrease <= 0.05
+            self.install = decrease >= 0.01
 
         if self.install and not self.test:
             if self.n_hidden == self.num_neurons:
