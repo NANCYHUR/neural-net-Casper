@@ -16,21 +16,17 @@ import torch.nn as nn
 import matplotlib.pyplot as plt
 import math
 
-run_time = 1
 plot_each_run = False
 
 # hyper parameters
-DNA_size = 27
-pop_size = 50
+DNA_size = 42
+pop_size = 10
 cross_rate = 0.8
-mutation_rate = 0.005
+mutation_rate = 0.002
 n_generations = 20
 
 # fixed hyper parameters for CasPer
 output_size = 4
-learning_rate_1 = 0.2
-learning_rate_2 = 0.005
-learning_rate_3 = 0.001
 k_cross_validation = 5
 
 # define loss function
@@ -39,14 +35,18 @@ loss_func = nn.MSELoss()
 
 # define regression model
 class Regression(nn.Module):
-    def __init__(self, input_size, output_size, all_losses, num_neurons, p_value):
+    def __init__(self, input_size, output_size, all_losses, num_neurons, p_value, lr_1, lr_2, lr_3):
         super(Regression, self).__init__()
+        self.test = False
         self.input_size = input_size
         self.output_size = output_size
         self.n_hidden = 0
         self.losses = all_losses
         self.num_neurons = num_neurons
         self.p = p_value    # used to determine whether to install a new neuron
+        self.lr_1 = lr_1
+        self.lr_2 = lr_2
+        self.lr_3 = lr_3
         self.input_to_output = nn.Linear(input_size, output_size)
         # all_to_output: a list containing all Linears from all neurons to output neurons
         self.all_to_output = []
@@ -55,7 +55,7 @@ class Regression(nn.Module):
 
         # define optimizer
         self.optimizers = []
-        optimizer = torch.optim.Rprop(self.parameters(), lr=learning_rate_1)
+        optimizer = torch.optim.Rprop(self.parameters(), lr=lr_1)
         self.optimizers.append(optimizer)
 
     def forward(self, x):   # size of x: (152, 20)
@@ -71,11 +71,10 @@ class Regression(nn.Module):
             rms1 = math.sqrt(loss1)
             rms2 = math.sqrt(loss2)
             decrease = (rms2 - rms1) / rms2
-            self.install = 0 < decrease <= 0.03
+            self.install = 0 < decrease <= 0.05
 
-        if self.install:
+        if self.install and not self.test:
             if self.n_hidden == self.num_neurons:
-                self.n_hidden -= 1
                 return None
             all_to_new = nn.Linear(self.input_size+self.n_hidden, 1)
             self.all_to_hidden.append(all_to_new)
@@ -86,16 +85,16 @@ class Regression(nn.Module):
             if len(self.optimizers) == 1:
                 optim = self.optimizers[0]
                 for g in optim.param_groups:
-                    g['lr'] = learning_rate_3
+                    g['lr'] = self.lr_3
             else:
                 optim = self.optimizers[-2]
                 for g in optim.param_groups:
-                    g['lr'] = learning_rate_3
+                    g['lr'] = self.lr_3
                 optim = self.optimizers[-1]
                 for g in optim.param_groups:
-                    g['lr'] = learning_rate_3
-            self.optimizers.append(torch.optim.Rprop([new_to_output.weight], lr=learning_rate_2))
-            self.optimizers.append(torch.optim.Rprop([all_to_new.weight, all_to_new.bias], lr=learning_rate_1))
+                    g['lr'] = self.lr_3
+            self.optimizers.append(torch.optim.Rprop([new_to_output.weight], lr=self.lr_2))
+            self.optimizers.append(torch.optim.Rprop([all_to_new.weight, all_to_new.bias], lr=self.lr_1))
 
             self.n_hidden += 1
             self.current_neuron_epoch = 0
@@ -129,12 +128,12 @@ class Regression(nn.Module):
 
 
 # train the model, given X and Y
-def train(X, Y, num_neurons, p_value, plot=False, to_print=False):
+def train(X, Y, num_neurons, p_value, lr_1, lr_2, lr_3, plot=False, to_print=False):
     # store all losses for visualisation
     all_losses = []
 
     # define regression model
-    reg_model = Regression(X.size(1), output_size, all_losses, num_neurons, p_value)
+    reg_model = Regression(X.size(1), output_size, all_losses, num_neurons, p_value, lr_1, lr_2, lr_3)
 
     # start training
     while True:
@@ -168,6 +167,7 @@ def train(X, Y, num_neurons, p_value, plot=False, to_print=False):
         plt.show()
 
     # print confusion matrix and correct percentage
+    reg_model.test = True
     Y_predicted = reg_model(X)
     loss = loss_func(Y_predicted, Y)
     total_num = Y_predicted.size(0)
@@ -201,96 +201,80 @@ def cross_validation(hyper_parameters):
     features = hyper_parameters[0]
     num_neurons = hyper_parameters[1]
     p_value = hyper_parameters[2]
-
-    # keep record of highest correctness rate and corresponding other evaluations
-    highest_test_correctness = 0
-    train_correctness = 0
-    test_loss_best = 0
-    train_loss_best = 0
+    lr_1 = hyper_parameters[3]
+    lr_2 = hyper_parameters[4]
+    lr_3 = hyper_parameters[5]
 
     # start training and testing
-    for t in range(run_time):
-        # pre-process the data, using the function defined in preprocessing.py
-        data = pre_process()
+    # pre-process the data, using the function defined in preprocessing.py
+    data = pre_process()
 
-        # keep only chosen features
-        columns = np.append(features, [1]*output_size)
-        features_idx = [i for i, x in enumerate(columns) if x == 1]
-        data = data.iloc[:, features_idx]
+    # keep only chosen features
+    columns = np.append(features, [1]*output_size)
+    features_idx = [i for i, x in enumerate(columns) if x == 1]
+    data = data.iloc[:, features_idx]
 
-        # split data for later use (k cross validation)
-        splitted_data = np.split(data, k_cross_validation)
+    # split data for later use (k cross validation)
+    splitted_data = np.split(data, k_cross_validation)
 
-        # train using cross validation
-        all_train_losses = []
-        all_test_losses = []
-        all_train_correctness = []
-        all_test_correctness = []
-        for i in range(k_cross_validation):
-            # extract train and test data, split input and target
-            X_train, Y_train = train_data(splitted_data, i)
-            X_test, Y_test = test_data(splitted_data, i)
+    # train using cross validation
+    all_train_losses = []
+    all_test_losses = []
+    all_train_correctness = []
+    all_test_correctness = []
+    for i in range(k_cross_validation):
+        # extract train and test data, split input and target
+        X_train, Y_train = train_data(splitted_data, i)
+        X_test, Y_test = test_data(splitted_data, i)
 
-            # train the model and print loss, confusion matrix and correctness
-            reg_model, loss, correctness = train(X_train, Y_train, num_neurons, p_value)
+        # train the model and print loss, confusion matrix and correctness
+        reg_model, loss, correctness = train(X_train, Y_train, num_neurons, p_value, lr_1, lr_2, lr_3)
 
-            # test the model on test data
-            test_loss, test_correctness = test(X_test, Y_test, reg_model)
+        # test the model on test data
+        test_loss, test_correctness = test(X_test, Y_test, reg_model)
 
-            # append losses and correctness
-            all_train_losses.append(loss)
-            all_test_losses.append(test_loss)
-            all_train_correctness.append(correctness)
-            all_test_correctness.append(test_correctness)
+        # append losses and correctness
+        all_train_losses.append(loss)
+        all_test_losses.append(test_loss)
+        all_train_correctness.append(correctness)
+        all_test_correctness.append(test_correctness)
 
-        # print average loss and correctness on training and testing data
-        print("run number {}".format(str(t)))
-        train_loss_avg = (sum(all_train_losses) / len(all_train_losses)).item()
-        test_loss_avg = (sum(all_test_losses) / len(all_test_losses)).item()
-        print('average loss on training data', train_loss_avg)
-        print('average loss on testing data', test_loss_avg)
-        train_correctness_avg = sum(all_train_correctness) / len(all_train_correctness)
-        test_correctness_avg = sum(all_test_correctness) / len(all_test_correctness)
-        print('average correctness on training data', train_correctness_avg)
-        print('average correctness on testing data', test_correctness_avg)
-        print('')
+    # print average loss and correctness on training and testing data
+    train_loss_avg = (sum(all_train_losses) / len(all_train_losses)).item()
+    test_loss_avg = (sum(all_test_losses) / len(all_test_losses)).item()
+    print('average loss on training data', train_loss_avg)
+    print('average loss on testing data', test_loss_avg)
+    train_correctness_avg = sum(all_train_correctness) / len(all_train_correctness)
+    test_correctness_avg = sum(all_test_correctness) / len(all_test_correctness)
+    print('average correctness on training data', train_correctness_avg)
+    print('average correctness on testing data', test_correctness_avg)
+    print('')
 
-        # update highest
-        if test_correctness_avg > highest_test_correctness:
-            highest_test_correctness = test_correctness_avg
-            train_correctness = train_correctness_avg
-            test_loss_best = test_loss_avg
-            train_loss_best = train_loss_avg
+    # display performance of each model
+    if plot_each_run:
+        # losses
+        plt.figure()
+        plt.plot(all_train_losses, label='training data', color='blue')
+        plt.plot(all_test_losses, label='testing data', color='red')
+        plt.axhline(y=train_loss_avg, linestyle=':', label='training data average loss', color='blue')
+        plt.axhline(y=test_loss_avg, linestyle=':', label='testing data average loss', color='red')
+        plt.legend()
+        plt.title('losses of model on training and testing data')
+        plt.show()
+        # correctness
+        plt.figure()
+        plt.plot(all_train_correctness, label='training data', color='blue')
+        plt.plot(all_test_correctness, label='testing data', color='red')
+        plt.axhline(y=train_correctness_avg, linestyle=':', label='training data average correctness', color='blue')
+        plt.axhline(y=test_correctness_avg, linestyle=':', label='testing data average correctness', color='red')
+        plt.legend()
+        plt.title('correctness of model on training and testing data')
+        plt.show()
 
-        # display performance of each model
-        if plot_each_run:
-            # losses
-            plt.figure()
-            plt.plot(all_train_losses, label='training data', color='blue')
-            plt.plot(all_test_losses, label='testing data', color='red')
-            plt.axhline(y=train_loss_avg, linestyle=':', label='training data average loss', color='blue')
-            plt.axhline(y=test_loss_avg, linestyle=':', label='testing data average loss', color='red')
-            plt.legend()
-            plt.title('losses of model on training and testing data')
-            plt.show()
-            # correctness
-            plt.figure()
-            plt.plot(all_train_correctness, label='training data', color='blue')
-            plt.plot(all_test_correctness, label='testing data', color='red')
-            plt.axhline(y=train_correctness_avg, linestyle=':', label='training data average correctness', color='blue')
-            plt.axhline(y=test_correctness_avg, linestyle=':', label='testing data average correctness', color='red')
-            plt.legend()
-            plt.title('correctness of model on training and testing data')
-            plt.show()
-
-    print("highest test correctness rate over 100 runs:", highest_test_correctness)
-    print("corresponding training correctness rate:", train_correctness)
-    print("corresponding testing loss:", test_loss_best)
-    print("corresponding training loss:", train_loss_best)
-    print("settings: ", features_idx, num_neurons, p_value)
+    print("settings: ", features_idx, num_neurons, p_value, lr_1, lr_2, lr_3)
     print("---------------------------------------\n")
 
-    return highest_test_correctness, train_correctness, test_loss_best, train_loss_best
+    return test_correctness_avg, train_correctness_avg, test_loss_avg, train_loss_avg
 
 ################################ main ###################################
 if __name__ == "__main__":

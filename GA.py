@@ -30,14 +30,37 @@ class GA_model():
             print("-------- generation {} --------".format(str(t+1)))
             # convert binary DNA to hyper parameters settings
             hyper_pop = self.translateDNA(pop)
+
+            # feed into neural net to get results
             correctness = self.get_fitness(hyper_pop)
-            print("Highest correctness: ", max(correctness))
+            correctness = np.asarray(correctness)
+
+            # print and store the highest correctness rate
+            print("Highest correctness: ", correctness.max())
             print("Corresponding hyper parameters settings: ", self.translateDNA(np.expand_dims(pop[np.argmax(correctness),:],axis=0)))
             print("---------------------------------------\n")
-            all_highest_correctness.append(max(correctness))
+            all_highest_correctness.append(correctness.max())
+
+            # select better population as parent 1
+            pop = self.select(pop, correctness)
+            # make another copy as parent 2
+            pop_copy = pop.copy()
+
+            for parent in pop:
+                # produce a child by crossover operation
+                child = self.crossover(parent, pop_copy)
+                # mutate child
+                child = self.mutate(child)
+                # replace parent with its child
+                parent[:] = child
 
         if plot:
             line = plt.plot(range(1,self.n_generations+1), all_highest_correctness)
+            plt.xlim(0,self.n_generations+2)
+            plt.xticks(np.arange(0, self.n_generations+1, 1.0))
+            for xy in zip(range(1,self.n_generations+1), all_highest_correctness):
+                plt.annotate(str(round(xy[1],2)), xy=(xy[0], xy[1] + 2), textcoords='data')
+            plt.ylim(0,100)
             plt.setp(line, color='g', linewidth=2.0)
             plt.xlabel('number of generation')
             plt.ylabel('best test accuracy rate among population (%)')
@@ -63,13 +86,16 @@ class GA_model():
         else:
             # extract hyper parematers
             features_pop = hyper_pop[0]
-            num_neurons = hyper_pop[1]
-            p_value = hyper_pop[2]
+            num_neurons_pop = hyper_pop[1]
+            p_value_pop = hyper_pop[2]
+            lr_1_pop = hyper_pop[3]
+            lr_2_pop = hyper_pop[4]
+            lr_3_pop = hyper_pop[5]
             # store all highest accuracy rate
             correctness = []
             for p in range(self.pop_size):
-                hyper = [features_pop[p], num_neurons[p], p_value[p]]
-                print("{}/{}".format(p + 1, self.n_generations))
+                hyper = [features_pop[p], num_neurons_pop[p], p_value_pop[p], lr_1_pop[p], lr_2_pop[p], lr_3_pop[p]]
+                print("{}/{}".format(p + 1, self.pop_size))
                 print(hyper)
                 highest_test_correctness, train_correctness, test_loss, train_loss = self.train_test(hyper)
                 correctness.append(highest_test_correctness)
@@ -87,15 +113,21 @@ class GA_model():
             num_epochs = pop[:, 26:34]
             learning_rate = pop[:, 34:44]
             hidden_size = binary_to_decimal(gray_to_binary(hidden_size)) + 1
-            num_epochs = binary_to_decimal(gray_to_binary(num_epochs)) + 10
-            learning_rate = (binary_to_decimal(gray_to_binary(learning_rate))+1)/10000
+            num_epochs = binary_to_decimal(gray_to_binary(num_epochs)) + 1
+            learning_rate = (binary_to_decimal(gray_to_binary(learning_rate)) + 1) / 10000
             hyper.extend([hidden_size, num_epochs, learning_rate])
         else:   # if it's CasPer
             num_neurons = pop[:, 20:24]
             p_value = pop[:, 24:27]
+            lr_1 = pop[:, 27:30]
+            lr_2 = pop[:, 30:32]
+            lr_3 = pop[:, 32:42]
             num_neurons = binary_to_decimal(gray_to_binary(num_neurons)) + 1
             p_value = binary_to_decimal(gray_to_binary(p_value)) + 1
-            hyper.extend([num_neurons, p_value])
+            lr_1 = (binary_to_decimal(gray_to_binary(lr_1)) + 1) / 10
+            lr_2 = (binary_to_decimal(gray_to_binary(lr_2)) + 1) * 0.002
+            lr_3 = (binary_to_decimal(gray_to_binary(lr_3)) + 1) / 10000
+            hyper.extend([num_neurons, p_value, lr_1, lr_2, lr_3])
 
         return hyper
 
@@ -103,7 +135,7 @@ class GA_model():
     # population with higher fitness value ahs higher chance to be selected
     def select(self, pop, fitness):
         idx = np.random.choice(np.arange(self.pop_size), size=self.pop_size, replace=True,
-                               p=fitness/fitness.sum())
+                               p=(fitness-fitness.min())/(fitness-fitness.min()).sum())
         return pop[idx]
 
     # define gene crossover function
